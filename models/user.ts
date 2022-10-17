@@ -39,4 +39,4 @@ const userSchema = new Schema(
   }
 );
 
-export default models.User || model<User>('User', userSchema);
+export default models.user || model<User>('User', userSchema);
