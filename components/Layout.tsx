@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { FC } from 'react';
 import Footer from './Footer';
-import { HeaderNav } from './Header';
-
+import HeaderNav from './Header';
+import { ModalsProvider } from '@mantine/modals';
 interface LayoutProps {
   children: React.ReactNode;
   title?: string;
@@ -41,7 +41,9 @@ const Layout: FC<LayoutProps> = ({ children, title }) => {
         <link rel='icon' href='/sillevon.svg' />
       </Head>
       <HeaderNav />
-      <main>{children}</main>
+      <ModalsProvider>
+        <main>{children}</main>
+      </ModalsProvider>
       <Footer data={data} />
     </>
   );
