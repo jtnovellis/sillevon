@@ -1,33 +1,32 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDB } from '../../utils/database';
-import user from '../../models/user';
+import connectDB from '../../utils/database';
+import User from '../../models/user';
 
 type Data =
   | {
       message: string;
-      data: {
-        name: string;
-        email: string;
-        password: string;
-        rol: string;
-      };
+      data: object;
     }
-  | { message: string };
+  | {
+      message: string;
+      error: unknown;
+    };
 
-connectDB();
-
-export const userHandler = async (
+export default async function userHandler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
-) => {
-  switch (req.method) {
+) {
+  const { method, body } = req;
+  await connectDB();
+  switch (method) {
     case 'POST':
-      const userData = req.body;
-      const userCreated = await user.create(userData);
-      return res
-        .status(201)
-        .json({ message: 'User created', data: userCreated });
-    default:
-      return res.status(400).json({ message: 'this method is not supported' });
+      try {
+        const user = await User.create(body);
+        return res.status(201).json({ message: 'User created', data: user });
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ message: 'User not created', error: err });
+      }
   }
-};
+}
