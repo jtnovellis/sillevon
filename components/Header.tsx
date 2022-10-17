@@ -10,17 +10,19 @@ import {
   ScrollArea,
   useMantineColorScheme,
 } from '@mantine/core';
+import { openModal, closeAllModals } from '@mantine/modals';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSun, IconMoonStars, IconPlayerPlay } from '@tabler/icons';
 import Link from 'next/link';
 import { useHeaderStyles } from './ui/useHeaderStyles';
+import { NextPage } from 'next';
+import Login from './Login';
 
-export function HeaderNav() {
+const HeaderNav: NextPage = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useHeaderStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
 
   return (
     <Box>
@@ -61,7 +63,21 @@ export function HeaderNav() {
                 />
               }
             />
-            <Button variant='default'>Log in</Button>
+            <Button
+              variant='default'
+              onClick={() => {
+                openModal({
+                  title: 'Stay with us',
+                  children: (
+                    <>
+                      <Login closemodal={closeAllModals} />
+                    </>
+                  ),
+                });
+              }}
+            >
+              Log in
+            </Button>
             <Button>Sign up</Button>
           </Group>
           <Burger
@@ -119,4 +135,6 @@ export function HeaderNav() {
       </Drawer>
     </Box>
   );
-}
+};
+
+export default HeaderNav;

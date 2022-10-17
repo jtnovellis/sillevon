@@ -60,7 +60,6 @@ const Footer: NextPage<FooterLinksProps> = ({ data }) => {
         <Text color='dimmed' size='sm'>
           © 2022 sillevon All rights reserved.
         </Text>
-
         <Group spacing={0} className={classes.social} position='right' noWrap>
           <ActionIcon size='lg'>
             <IconBrandTwitter size={18} stroke={1.5} />
