@@ -9,4 +9,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
+}
+.bundleArtists {
+  margin: 2rem auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.headerArtists {
+  margin: 7rem 0 1rem 0;
+  text-align: center;
+}
+.searcherBar {
+  margin: 0 auto;
+  max-width: 60rem;
 }

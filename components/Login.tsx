@@ -27,7 +27,7 @@ const Login = (props: LoginProps) => {
       email: '',
       name: '',
       password: '',
-      terms: true,
+      terms: false,
     },
 
     validate: {
