@@ -70,11 +70,7 @@ const HeaderNav: NextPage = () => {
                 onClick={() => {
                   openModal({
                     title: 'Stay with us',
-                    children: (
-                      <>
-                        <Login closemodal={closeAllModals} />
-                      </>
-                    ),
+                    children: <Login />,
                   });
                 }}
               >

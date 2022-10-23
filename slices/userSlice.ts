@@ -3,22 +3,25 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   value: number;
-  userName: string;
+  name: string;
   email: string;
   avatar: string;
+  terms: boolean;
 }
 
 const initialState: UserState = {
   value: 0,
-  userName: '',
+  name: '',
   email: '',
   avatar: '',
+  terms: false,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    addUserData: (state, action: PayloadAction<UserState>) => {},
     increment: (state) => {
       state.value += 1;
     },
