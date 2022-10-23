@@ -6,6 +6,8 @@ import {
   ColorScheme,
 } from '@mantine/core';
 import '../styles/globals.scss';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
@@ -13,18 +15,20 @@ function MyApp({ Component, pageProps }: AppProps) {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   };
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ colorScheme }}
+    <Provider store={store}>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <Component {...pageProps} />
-      </MantineProvider>
-    </ColorSchemeProvider>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{ colorScheme }}
+        >
+          <Component {...pageProps} />
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </Provider>
   );
 }
 
