@@ -35,6 +35,12 @@ export const useHeaderStyles = createStyles((theme) => ({
     },
   },
 
+  avatar: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+  },
+
   logo: {
     fontSize: 25,
     fontWeight: 700,

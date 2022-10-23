@@ -1,9 +1,11 @@
 import { Overlay, Container, Title, Button, Text } from '@mantine/core';
 import { NextPage } from 'next';
 import { useHeroStyles } from './ui/useHeroStyles';
+import { useRouter } from 'next/router';
 
 const Hero: NextPage = () => {
   const { classes } = useHeroStyles();
+  const router = useRouter();
   return (
     <div className={classes.hero}>
       <Overlay
@@ -19,9 +21,10 @@ const Hero: NextPage = () => {
           We tranforms the way music has been brings to the scenaries. Choose
           your own band for any type of events. Have a bundle of profesional
           artists for any music purposal. If you are a musician, you can make so
-          many contacts and enhave your visibility.
+          many contacts and enhace your visibility.
         </Text>
         <Button
+          onClick={() => router.push('/pricing')}
           variant='gradient'
           size='xl'
           radius='xl'

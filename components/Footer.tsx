@@ -45,7 +45,7 @@ const Footer: NextPage<FooterLinksProps> = ({ data }) => {
       <Container className={classes.inner}>
         <div className={classes.logo}>
           <Link href='/'>
-            <a>
+            <a className={classes.sillevon}>
               <IconPlayerPlay />
               <span>Sillevon</span>
             </a>
