@@ -8,6 +8,7 @@ import {
   Drawer,
   Switch,
   ScrollArea,
+  Avatar,
   useMantineColorScheme,
 } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
@@ -63,22 +64,28 @@ const HeaderNav: NextPage = () => {
                 />
               }
             />
-            <Button
-              variant='default'
-              onClick={() => {
-                openModal({
-                  title: 'Stay with us',
-                  children: (
-                    <>
-                      <Login closemodal={closeAllModals} />
-                    </>
-                  ),
-                });
-              }}
-            >
-              Log in
-            </Button>
-            <Button>Sign up</Button>
+            {true ? (
+              <Button
+                variant='default'
+                onClick={() => {
+                  openModal({
+                    title: 'Stay with us',
+                    children: <Login />,
+                  });
+                }}
+              >
+                Log in
+              </Button>
+            ) : (
+              <button className={classes.avatar}>
+                <Avatar
+                  src={
+                    'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80'
+                  }
+                  radius='xl'
+                />
+              </button>
+            )}
           </Group>
           <Burger
             opened={drawerOpened}

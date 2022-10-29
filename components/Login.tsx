@@ -16,8 +16,14 @@ import {
 import { IconBrandGoogle, IconBrandTwitter } from '@tabler/icons';
 
 interface LoginProps {
-  closemodal: (payload_0?: undefined) => void;
   Paper?: PaperProps;
+}
+
+interface UserValues {
+  email: string;
+  name: string;
+  password: string;
+  terms: boolean;
 }
 
 const Login = (props: LoginProps) => {
@@ -27,7 +33,7 @@ const Login = (props: LoginProps) => {
       email: '',
       name: '',
       password: '',
-      terms: true,
+      terms: false,
     },
 
     validate: {
@@ -38,6 +44,10 @@ const Login = (props: LoginProps) => {
           : null,
     },
   });
+
+  const handleSubmit = (values: UserValues) => {
+    console.log(values);
+  };
 
   return (
     <Paper radius='md' p='xl' withBorder {...props}>
@@ -58,7 +68,7 @@ const Login = (props: LoginProps) => {
 
       <Divider label='Or continue with email' labelPosition='center' my='lg' />
 
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Stack>
           {type === 'register' && (
             <TextInput
@@ -74,7 +84,7 @@ const Login = (props: LoginProps) => {
           <TextInput
             required
             label='Email'
-            placeholder='hello@mantine.dev'
+            placeholder='Your email address'
             value={form.values.email}
             onChange={(event) =>
               form.setFieldValue('email', event.currentTarget.value)
@@ -98,6 +108,7 @@ const Login = (props: LoginProps) => {
 
           {type === 'register' && (
             <Checkbox
+              required
               label='I accept terms and conditions'
               checked={form.values.terms}
               onChange={(event) =>
@@ -119,9 +130,7 @@ const Login = (props: LoginProps) => {
               ? 'Already have an account? Login'
               : "Don't have an account? Register"}
           </Anchor>
-          <Button onClick={() => props.closemodal()} type='submit'>
-            {upperFirst(type)}
-          </Button>
+          <Button type='submit'>{upperFirst(type)}</Button>
         </Group>
       </form>
     </Paper>

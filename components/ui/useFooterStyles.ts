@@ -100,4 +100,10 @@ export const useFooterStyles = createStyles((theme) => ({
       marginTop: theme.spacing.xs,
     },
   },
+
+  sillevon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));

@@ -1,0 +1,24 @@
+.posts {
+  max-width: 35rem;
+  margin-bottom: 1rem;
+}
+.postsImage {
+  border-radius: 0.5rem;
+}
+.postsInfo {
+  padding: 0.5rem;
+}
+.postsInfoTriggers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.postsTriggers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.allComments {
+  max-height: 20rem;
+  overflow-y: auto;
+}
