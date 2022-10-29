@@ -1,20 +1,32 @@
-import { Avatar } from '@mantine/core';
+import { Text, Avatar, Group } from '@mantine/core';
 import styles from '../styles/Comments.module.scss';
+import { useCommentsStyles } from './ui/useCommentsStyles';
 
 interface CommentsProps {
-  image: string;
-  comment: string;
-  user: string;
+  postedAt: string;
+  body: string;
+  author: {
+    name: string;
+    image: string;
+  };
 }
 
-export default function Comments({ image, comment, user }: CommentsProps) {
+export default function Comments({ postedAt, body, author }: CommentsProps) {
+  const { classes } = useCommentsStyles();
   return (
-    <div className={styles.comments}>
-      <div className={styles.usersComment}>
-        <Avatar src={image} radius='xl' />
-        <p>{user}</p>
-      </div>
-      <p>{comment}</p>
+    <div>
+      <Group>
+        <Avatar src={author.image} alt={author.name} radius='xl' />
+        <div>
+          <Text size='sm'>{author.name}</Text>
+          <Text size='xs' color='dimmed'>
+            {postedAt}
+          </Text>
+        </div>
+      </Group>
+      <Text className={classes.body} size='sm'>
+        {body}
+      </Text>
     </div>
   );
 }

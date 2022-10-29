@@ -5,6 +5,7 @@ import UserStats from '../../components/UserStats';
 import styles from '../../styles/UserIdArtists.module.scss';
 import Posts from '../../components/Posts';
 import { posts } from '../../utils/mockPosts';
+import Map from '../../components/Map';
 
 const ArtistProfileClient: NextPage = () => {
   const mockData = {
@@ -81,6 +82,12 @@ const ArtistProfileClient: NextPage = () => {
         <div>
           <div className={styles.userStats}>
             <UserStats data={data} />
+            <Map
+              zoom={10}
+              center={{ lat: 10.9838099, lng: -74.853037 }}
+              className={styles.userMap}
+              position={{ lat: 10.9838099, lng: -74.853037 }}
+            />
           </div>
         </div>
       </div>

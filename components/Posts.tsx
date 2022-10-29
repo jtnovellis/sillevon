@@ -13,9 +13,12 @@ interface PostsProps {
   likes: number;
   comments: {
     id: number;
-    user: string;
-    content: string;
-    image: string;
+    postedAt: string;
+    body: string;
+    author: {
+      name: string;
+      image: string;
+    };
   }[];
 }
 
@@ -61,9 +64,9 @@ export default function Posts({
                       {comments.map((comment) => (
                         <Comments
                           key={comment.id}
-                          comment={comment.content}
-                          user={comment.user}
-                          image={comment.image}
+                          postedAt={comment.postedAt}
+                          body={comment.body}
+                          author={comment.author}
                         />
                       ))}
                     </div>

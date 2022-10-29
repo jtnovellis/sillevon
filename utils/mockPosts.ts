@@ -8,87 +8,123 @@ export const posts = [
     comments: [
       {
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
+        author: {
+          name: 'user 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
       },
       {
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
       {
+        author: {
+          name: 'name 5',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 5,
-        user: 'user 5',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 5',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 5',
       },
       {
+        author: {
+          name: 'name 6',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 6,
-        user: 'user 6',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 6',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 6',
       },
       {
+        author: {
+          name: 'name 7',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 7,
-        user: 'user 7',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 7',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 7',
       },
       {
+        author: {
+          name: 'name 8',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 8,
-        user: 'user 8',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 8',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 8',
       },
       {
+        author: {
+          name: 'name 9',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 9,
-        user: 'user 9',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 7',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 7',
       },
       {
+        author: {
+          name: 'name 10',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 10,
-        user: 'user 10',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 8',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 8',
       },
       {
+        author: {
+          name: 'name 11',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 11,
-        user: 'user 11',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 7',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 7',
       },
       {
+        author: {
+          name: 'name 12',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 12,
-        user: 'user 12',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 8',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 8',
       },
     ],
   },
@@ -100,32 +136,44 @@ export const posts = [
     likes: 14,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
     ],
   },
@@ -137,18 +185,24 @@ export const posts = [
     likes: 210,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
     ],
   },
@@ -160,39 +214,54 @@ export const posts = [
     likes: 934,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
       {
+        author: {
+          name: 'name 5',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 5,
-        user: 'user 5',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 5',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 5',
       },
     ],
   },
@@ -204,60 +273,84 @@ export const posts = [
     likes: 34,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
       {
+        author: {
+          name: 'name 5',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 5,
-        user: 'user 5',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 5',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 5',
       },
       {
+        author: {
+          name: 'name 6',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 6,
-        user: 'user 6',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 6',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 6',
       },
       {
+        author: {
+          name: 'name 7',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 7,
-        user: 'user 7',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 7',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 7',
       },
       {
+        author: {
+          name: 'name 8',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 8,
-        user: 'user 8',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 8',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 8',
       },
     ],
   },
@@ -269,18 +362,24 @@ export const posts = [
     likes: 234,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
     ],
   },
@@ -292,53 +391,74 @@ export const posts = [
     likes: 300,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
       {
+        author: {
+          name: 'name 5',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 5,
-        user: 'user 5',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 5',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 5',
       },
       {
+        author: {
+          name: 'name 6',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 6,
-        user: 'user 6',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 6',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 6',
       },
       {
+        author: {
+          name: 'name 7',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 7,
-        user: 'user 7',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 7',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 7',
       },
     ],
   },
@@ -350,11 +470,14 @@ export const posts = [
     likes: 137,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
     ],
   },
@@ -366,39 +489,54 @@ export const posts = [
     likes: 154,
     comments: [
       {
+        author: {
+          name: 'name 1',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 1,
-        user: 'user 1',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 1',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 1',
       },
       {
+        author: {
+          name: 'name 2',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 2,
-        user: 'user 2',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 2',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 2',
       },
       {
+        author: {
+          name: 'name 3',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 3,
-        user: 'user 3',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 3',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 3',
       },
       {
+        author: {
+          name: 'name 4',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 4,
-        user: 'user 4',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 4',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 4',
       },
       {
+        author: {
+          name: 'name 5',
+          image:
+            'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
+        },
         id: 5,
-        user: 'user 5',
-        image:
-          'https://res.cloudinary.com/dhrs1koll/image/upload/v1667061863/SillevonPosts/photo-1633332755192-727a05c4013d_pqrxbv.avif',
-        content: 'This is the comment number 5',
+        postedAt: '10 minutes ago ',
+        body: 'This is the comment number 5',
       },
     ],
   },
