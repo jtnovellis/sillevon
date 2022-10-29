@@ -8,9 +8,10 @@ import {
 import '../styles/globals.scss';
 import { Provider } from 'react-redux';
 import { store } from '../store';
+import { ModalsProvider } from '@mantine/modals';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const toggleColorScheme = (value?: ColorScheme) => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   };
@@ -25,7 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           withNormalizeCSS
           theme={{ colorScheme }}
         >
-          <Component {...pageProps} />
+          <ModalsProvider>
+            <Component {...pageProps} />
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </Provider>

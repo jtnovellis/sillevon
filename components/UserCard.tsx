@@ -6,7 +6,7 @@ interface UserCardProps {
   avatar: string;
   name: string;
   job: string;
-  stats: { label: string; value: string }[];
+  stats: { label: string; value: number }[];
 }
 
 export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {

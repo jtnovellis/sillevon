@@ -6,6 +6,7 @@ export const useHeroStyles = createStyles((theme) => ({
     backgroundImage: 'url(HeroImg.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    height: '100vh',
   },
 
   container: {
