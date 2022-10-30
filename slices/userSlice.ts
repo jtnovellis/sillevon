@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface UserState {
-  name: string;
-  email: string;
-  avatar: string;
-  terms: boolean;
+export interface UserState {
+  name?: string;
+  email?: string;
+  avatar?: string;
+  terms?: boolean;
+  mode?: string;
+  skills?: {
+    improvisation: number;
+    show: number;
+    repertoire: number;
+    versatility: number;
+    instrumentation: number;
+  };
 }
 
 const initialState: UserState = {
@@ -13,6 +21,14 @@ const initialState: UserState = {
   email: '',
   avatar: '',
   terms: false,
+  mode: '',
+  skills: {
+    improvisation: 0,
+    show: 0,
+    repertoire: 0,
+    versatility: 0,
+    instrumentation: 0,
+  },
 };
 
 export const userSlice = createSlice({
@@ -25,9 +41,15 @@ export const userSlice = createSlice({
       state.terms = action.payload.terms;
       state.name = action.payload.name;
     },
+    setUserMode: (state, action: PayloadAction<UserState>) => {
+      state.mode = action.payload.mode;
+    },
+    setSkills: (state, action: PayloadAction<UserState>) => {
+      state.skills = action.payload.skills;
+    },
   },
 });
 
-export const { addUserData } = userSlice.actions;
+export const { addUserData, setUserMode, setSkills } = userSlice.actions;
 
 export default userSlice.reducer;
