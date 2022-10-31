@@ -50,7 +50,7 @@ export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
         size='md'
         color={theme.colorScheme === 'dark' ? undefined : 'dark'}
       >
-        Follow
+        Connect
       </Button>
     </Card>
   );
