@@ -1,12 +1,21 @@
-import { createStyles, Card, Avatar, Text } from '@mantine/core';
+import {
+  createStyles,
+  Card,
+  Avatar,
+  Text,
+  Button,
+  Center,
+} from '@mantine/core';
 import { DropZone } from './DropZone';
+import MapForRegister from './MapForRegister';
+import Map from './Map';
 
 const useStyles = createStyles((theme) => ({
   card: {
     backgroundColor:
       theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     width: '20rem',
-    height: '25rem',
+    height: '21rem',
   },
 
   avatar: {
@@ -19,8 +28,9 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  dropZone: {
-    width: '20rem',
+  map: {
+    width: '30rem',
+    height: '25rem',
   },
 }));
 
@@ -39,9 +49,6 @@ export function TuneUpProfilePhotos({
 
   return (
     <div className={classes.TuneUpProfilePhotos}>
-      <div className={classes.dropZone}>
-        <DropZone />
-      </div>
       <div>
         <Card withBorder p='xl' radius='md' className={classes.card}>
           <Card.Section
@@ -56,12 +63,22 @@ export function TuneUpProfilePhotos({
             className={classes.avatar}
           />
           <Text align='center' size='lg' weight={500} mt='sm'>
-            {name}
+            {name || 'Jairo'}
           </Text>
+          <Center>
+            <Button>Avatar</Button>
+            <Button>Background</Button>
+          </Center>
         </Card>
       </div>
-      <div className={classes.dropZone}>
-        <DropZone />
+      <div>
+        {/* <Map
+          zoom={11}
+          center={{ lat: 10.96104, lng: -74.800957 }}
+          className={classes.map}
+          position={{ lat: 10.96104, lng: -74.800957 }}
+        /> */}
+        <MapForRegister />
       </div>
     </div>
   );

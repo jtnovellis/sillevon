@@ -17,7 +17,7 @@ export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
       <Text align='center' size='lg' weight={500}>
         {stat.value}
       </Text>
-      <Text align='center' size='sm' color='dimmed'>
+      <Text align='center' size='xs' color='dimmed'>
         {stat.label}
       </Text>
     </div>

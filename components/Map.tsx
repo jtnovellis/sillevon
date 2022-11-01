@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { IconPlayerPlay } from '@tabler/icons';
+import styles from '../styles/Map.module.scss';
 
 interface MapProps {
   zoom: number;
@@ -13,6 +15,10 @@ interface MapProps {
     lng: number;
   };
 }
+const options = {
+  disableDefaultUI: true,
+  zoomControl: true,
+};
 
 export default function Map({ zoom, center, className, position }: MapProps) {
   const { isLoaded } = useLoadScript({
@@ -23,12 +29,19 @@ export default function Map({ zoom, center, className, position }: MapProps) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <GoogleMap
-      zoom={zoom}
-      center={fixedCenter}
-      mapContainerClassName={className}
-    >
-      <Marker position={position} />
-    </GoogleMap>
+    <div className={styles.mapContainer}>
+      <div className={styles.sillevonLogoforMap}>
+        <IconPlayerPlay />
+        <h2>Sillevon</h2>
+      </div>
+      <GoogleMap
+        zoom={zoom}
+        center={fixedCenter}
+        mapContainerClassName={className}
+        options={options}
+      >
+        <Marker position={position} />
+      </GoogleMap>
+    </div>
   );
 }

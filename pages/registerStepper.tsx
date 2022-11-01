@@ -13,7 +13,7 @@ export default function RegisterStepper() {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
   return (
-    <Layout>
+    <Layout title='Sillevon | Register'>
       <section className={styles.registerStepper}>
         <Stepper active={active} onStepClick={setActive} breakpoint='sm'>
           <Stepper.Step
@@ -58,7 +58,7 @@ export default function RegisterStepper() {
                 weight={700}
                 style={{ fontFamily: 'Greycliff CF, sans-serif' }}
               >
-                Select your profile photos
+                Select your photos and location
               </Text>
             </Center>
             <TuneUpProfilePhotos />

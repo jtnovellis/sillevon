@@ -41,7 +41,7 @@ export function DropZone(props: Partial<DropzoneProps>) {
 
         <div>
           <Text size='xl' inline>
-            Drag images here or click to select files
+            Drag your avatar image here or click to select file
           </Text>
           <Text size='sm' color='dimmed' inline mt={7}>
             Attach as many files as you like, each file should not exceed 5mb
