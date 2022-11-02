@@ -58,7 +58,6 @@ export const userSlice = createSlice({
   reducers: {
     addUserData: (state, action: PayloadAction<UserState>) => {
       state.email = action.payload.email;
-      state.terms = action.payload.terms;
       state.name = action.payload.name;
     },
     setUserMode: (state, action: PayloadAction<UserState>) => {

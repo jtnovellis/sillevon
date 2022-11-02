@@ -1,21 +1,29 @@
 import { useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import {
   TextInput,
   PasswordInput,
   Text,
   Paper,
   Group,
-  PaperProps,
   Button,
   Divider,
   Checkbox,
   Anchor,
   Stack,
 } from '@mantine/core';
-import { IconBrandGoogle, IconBrandTwitter } from '@tabler/icons';
+import {
+  IconBrandGoogle,
+  IconBrandTwitter,
+  IconCheck,
+  IconBug,
+} from '@tabler/icons';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useAppDispatch } from '../hooks/redux';
+import { addUserData } from '../slices/userSlice';
+import cookie from 'js-cookie';
 
 interface LoginProps {
   closeAllModals: (payload_0?: undefined) => void;
@@ -29,6 +37,7 @@ interface UserValues {
 }
 
 const Login = ({ closeAllModals }: LoginProps) => {
+  const dispatch = useAppDispatch();
   const [type, toggle] = useToggle(['login', 'register']);
   const router = useRouter();
   const form = useForm({
@@ -49,27 +58,63 @@ const Login = ({ closeAllModals }: LoginProps) => {
   });
 
   const handleSubmit = async (values: UserValues) => {
-    console.log(values);
-
     if (type === 'register') {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_BACKEND_URI}/api/users/auth/local/signup`,
+          `${process.env.NEXT_BACKEND_URI}/auth/local/signup`,
           values
         );
+        dispatch(
+          addUserData({ name: res.data.data.name, email: res.data.data.email })
+        );
+        cookie.set('sillusr', res.data.data.token, { expires: 1 });
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'User was registered successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
         router.push('/registerStepper');
       } catch (e) {
-        console.log(e);
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'User could not been registered',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
       }
     } else {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_BACKEND_URI}/api/users/auth/local/signin`,
+          `${process.env.NEXT_BACKEND_URI}/auth/local/signin`,
           values
         );
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'Login successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
         router.push('/');
       } catch (e) {
-        console.log(e);
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'Login fail',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
       }
     }
   };
