@@ -1,13 +1,4 @@
-import {
-  createStyles,
-  Card,
-  Avatar,
-  Text,
-  Button,
-  Center,
-  TextInput,
-  Group,
-} from '@mantine/core';
+import { createStyles, Card, Avatar, Text, Button } from '@mantine/core';
 import { DropZone } from './DropZone';
 import MapForRegister from './MapForRegister';
 import { openModal, closeAllModals } from '@mantine/modals';
@@ -45,11 +36,13 @@ const useStyles = createStyles((theme) => ({
     marginTop: '1rem',
   },
 }));
+type ReaderState = string | ArrayBuffer | null;
 
 export function TuneUpProfilePhotos() {
   const { classes } = useStyles();
-  const [toRenderAvatar, setToRenderAvatar] = useState(null);
-  const [toRenderBackground, setToRenderBackground] = useState(null);
+  const [toRenderAvatar, setToRenderAvatar] = useState<ReaderState>(null);
+  const [toRenderBackground, setToRenderBackground] =
+    useState<ReaderState>(null);
   const { avatar, background, name } = useAppSelector((state) => state.user);
 
   const handleModals = () => {
@@ -59,7 +52,11 @@ export function TuneUpProfilePhotos() {
   const readFileAvatar = (file: FileWithPath | null | undefined) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => setToRenderAvatar(e.target.result);
+      reader.onload = (e) => {
+        if (e.target) {
+          setToRenderAvatar(e.target.result);
+        }
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -67,7 +64,11 @@ export function TuneUpProfilePhotos() {
   const readFileBackground = (file: FileWithPath | null | undefined) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => setToRenderBackground(e.target.result);
+      reader.onload = (e) => {
+        if (e.target) {
+          setToRenderBackground(e.target.result);
+        }
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -85,7 +86,7 @@ export function TuneUpProfilePhotos() {
             sx={{ backgroundImage: `url(${toRenderBackground})`, height: 140 }}
           />
           <Avatar
-            src={toRenderAvatar}
+            src={toRenderAvatar as string}
             size={100}
             radius={80}
             mx='auto'

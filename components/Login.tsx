@@ -22,8 +22,8 @@ import {
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useAppDispatch } from '../hooks/redux';
-import { addUserData } from '../slices/userSlice';
-import cookie from 'js-cookie';
+import { addUserData, setLogged } from '../slices/userSlice';
+import Cookies from 'js-cookie';
 
 interface LoginProps {
   closeAllModals: (payload_0?: undefined) => void;
@@ -61,13 +61,19 @@ const Login = ({ closeAllModals }: LoginProps) => {
     if (type === 'register') {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_BACKEND_URI}/auth/local/signup`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signup`,
           values
         );
         dispatch(
-          addUserData({ name: res.data.data.name, email: res.data.data.email })
+          addUserData({
+            name: res.data.data.name,
+            email: res.data.data.email,
+            imagesDone: res.data.data.imagesDone,
+          })
         );
-        cookie.set('sillusr', res.data.data.token, { expires: 1 });
+        dispatch(setLogged({ isLogged: true }));
+        Cookies.remove('sillusr');
+        Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         showNotification({
           id: 'load-data-user',
           color: 'teal',
@@ -92,9 +98,11 @@ const Login = ({ closeAllModals }: LoginProps) => {
     } else {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_BACKEND_URI}/auth/local/signin`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signin`,
           values
         );
+        Cookies.remove('sillusr');
+        Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         showNotification({
           id: 'load-data-user',
           color: 'teal',
@@ -105,6 +113,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
           autoClose: 4000,
         });
         router.push('/');
+        dispatch(setLogged({ isLogged: true }));
       } catch (e) {
         showNotification({
           id: 'load-data-user',

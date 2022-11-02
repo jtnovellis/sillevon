@@ -25,6 +25,7 @@ export interface UserState {
     versatility: number;
     instrumentation: number;
   };
+  isLogged?: boolean;
 }
 
 const initialState: UserState = {
@@ -50,6 +51,7 @@ const initialState: UserState = {
     versatility: 0,
     instrumentation: 0,
   },
+  isLogged: false,
 };
 
 export const userSlice = createSlice({
@@ -59,6 +61,7 @@ export const userSlice = createSlice({
     addUserData: (state, action: PayloadAction<UserState>) => {
       state.email = action.payload.email;
       state.name = action.payload.name;
+      state.imagesDone = action.payload.imagesDone;
     },
     setUserMode: (state, action: PayloadAction<UserState>) => {
       state.mode = action.payload.mode;
@@ -81,6 +84,15 @@ export const userSlice = createSlice({
     setImages: (state, action: PayloadAction<UserState>) => {
       state.imagesDone = action.payload.imagesDone;
     },
+    setLogged: (state, action: PayloadAction<UserState>) => {
+      state.isLogged = action.payload.isLogged;
+    },
+    setOtherData: (state, action: PayloadAction<UserState>) => {
+      state.mode = action.payload.mode;
+      state.city = action.payload.city;
+      state.location = action.payload.location;
+      state.skills = action.payload.skills;
+    },
   },
 });
 
@@ -93,6 +105,8 @@ export const {
   setImages,
   setAvatar,
   setBackground,
+  setLogged,
+  setOtherData,
 } = userSlice.actions;
 
 export default userSlice.reducer;

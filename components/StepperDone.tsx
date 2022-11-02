@@ -1,49 +1,75 @@
 import { Button, Center, Text } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import axios from 'axios';
-import { setImages } from '../slices/userSlice';
+import { setImages, setOtherData } from '../slices/userSlice';
+import Cookies from 'js-cookie';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck, IconBug } from '@tabler/icons';
+import { useRouter } from 'next/router';
 
 export default function StepperDone() {
-  const {
-    name,
-    email,
-    avatar,
-    background,
-    terms,
-    mode,
-    city,
-    location,
-    skills,
-  } = useAppSelector((state) => state.user);
+  const { email, avatar, background, mode, city, location, skills } =
+    useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleClick = async () => {
+    const token = Cookies.get('sillusr');
     const data = new FormData();
     data.append('email', email as string);
     data.append('avatar', avatar as string | Blob, avatar?.name);
     data.append('background', background as string | Blob, background?.name);
     try {
       const resFormData = await axios.post(
-        `${process.env.NEXT_BACKEND_URI}/api/users/update/form-data`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/update/form-data`,
         data,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      const { email, imagesDone } = resFormData.data;
+      const { email, imagesDone } = resFormData.data.data;
       dispatch(setImages({ email, imagesDone }));
       const res = await axios.put(
-        `${process.env.NEXT_BACKEND_URI}/api/users/update`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/update`,
         {
-          name,
-          terms,
           mode,
           city,
           location,
           skills,
-        }
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(res.data);
+      dispatch(
+        setOtherData({
+          mode: res.data.data.mode,
+          city: res.data.data.city,
+          location: res.data.data.location,
+          skills: res.data.data.skills,
+        })
+      );
+      showNotification({
+        id: 'load-data-user',
+        color: 'teal',
+        title: res.data.message,
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconCheck size={16} />,
+        autoClose: 4000,
+      });
+      router.push('/');
     } catch (e) {
-      console.log(e);
+      showNotification({
+        id: 'load-data-user',
+        color: 'red',
+        title: 'User could not be updated',
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconBug size={16} />,
+        autoClose: 4000,
+      });
     }
   };
   return (

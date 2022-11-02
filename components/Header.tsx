@@ -18,12 +18,14 @@ import Link from 'next/link';
 import { useHeaderStyles } from './ui/useHeaderStyles';
 import { NextPage } from 'next';
 import Login from './Login';
+import { useAppSelector } from '../hooks/redux';
 
 const HeaderNav: NextPage = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useHeaderStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { isLogged, imagesDone } = useAppSelector((state) => state.user);
 
   return (
     <Box>
@@ -64,7 +66,7 @@ const HeaderNav: NextPage = () => {
                 />
               }
             />
-            {true ? (
+            {!isLogged ? (
               <Button
                 variant='default'
                 onClick={() => {
@@ -78,12 +80,7 @@ const HeaderNav: NextPage = () => {
               </Button>
             ) : (
               <button className={classes.avatar}>
-                <Avatar
-                  src={
-                    'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80'
-                  }
-                  radius='xl'
-                />
+                <Avatar src={imagesDone?.avatar} radius='xl' />
               </button>
             )}
           </Group>
