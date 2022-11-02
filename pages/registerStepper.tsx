@@ -6,9 +6,12 @@ import UserMode from '../components/UserMode';
 import Sliders from '../components/Sliders';
 import { TuneUpProfilePhotos } from '../components/TuneUpProfilePhotos';
 import StepperDone from '../components/StepperDone';
+import { useAppSelector } from '../hooks/redux';
 
 export default function RegisterStepper() {
   const [active, setActive] = useState(0);
+  const [isCustomer, setIsCustomer] = useState(false);
+
   const nextStep = async () => {
     setActive((current) => (current < 3 ? current + 1 : current));
   };
@@ -35,15 +38,17 @@ export default function RegisterStepper() {
               >
                 Select your user mode
               </Text>
-              <UserMode />
+              <UserMode setIsCustomer={setIsCustomer} />
             </div>
           </Stepper.Step>
           <Stepper.Step
-            label='Skills'
-            description='Set your skills'
+            label={!isCustomer ? 'Favorites' : 'Skills'}
+            description={
+              !isCustomer ? 'Set your favorites genres' : 'Set your skills'
+            }
             allowStepSelect={active > 1}
           >
-            <Sliders />
+            {!isCustomer ? null : <Sliders />}
           </Stepper.Step>
           <Stepper.Step
             label='Tune up'
@@ -69,7 +74,6 @@ export default function RegisterStepper() {
             <StepperDone />
           </Stepper.Completed>
         </Stepper>
-
         {active !== 3 ? (
           <Group position='center' mt='xl'>
             <Button variant='default' onClick={prevStep}>

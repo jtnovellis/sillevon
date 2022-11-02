@@ -1,10 +1,14 @@
 import { SegmentedControl, Box, Center } from '@mantine/core';
 import { IconEar, IconMusic } from '@tabler/icons';
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState, SetStateAction } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import { setUserMode } from '../slices/userSlice';
 
-export default function UserMode() {
+interface UserModeProps {
+  setIsCustomer: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function UserMode({ setIsCustomer }: UserModeProps) {
   const [mode, setMode] = useState('custumer');
   const dispatch = useAppDispatch();
 
@@ -15,7 +19,11 @@ export default function UserMode() {
   return (
     <SegmentedControl
       value={mode}
-      onChange={setMode}
+      onChange={(value) => {
+        setIsCustomer((prev) => !prev);
+
+        setMode(value);
+      }}
       fullWidth
       size='xl'
       radius='xl'
