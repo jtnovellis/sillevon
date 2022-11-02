@@ -1,16 +1,28 @@
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons';
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { useAppDispatch } from '../hooks/redux';
+import { setAvatar, setBackground } from '../slices/userSlice';
 
-export function DropZone(props: Partial<DropzoneProps>) {
+interface DropZoneProps {
+  type: string;
+}
+
+export function DropZone({ type }: DropZoneProps) {
   const theme = useMantineTheme();
+  const dispatch = useAppDispatch();
   return (
     <Dropzone
-      onDrop={(files) => console.log('accepted files', files)}
+      onDrop={(files) => {
+        if (type === 'avatar') {
+          dispatch(setAvatar({ avatar: files[0] }));
+        } else if (type === 'background') {
+          dispatch(setBackground({ background: files[0] }));
+        }
+      }}
       onReject={(files) => console.log('rejected files', files)}
       maxSize={3 * 1024 ** 2}
       accept={IMAGE_MIME_TYPE}
-      {...props}
     >
       <Group
         position='center'
@@ -41,10 +53,10 @@ export function DropZone(props: Partial<DropzoneProps>) {
 
         <div>
           <Text size='xl' inline>
-            Drag your avatar image here or click to select file
+            Drag your {type} image here or click to select file
           </Text>
           <Text size='sm' color='dimmed' inline mt={7}>
-            Attach as many files as you like, each file should not exceed 5mb
+            Attached file should not exceed 5mb
           </Text>
         </div>
       </Group>

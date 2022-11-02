@@ -5,21 +5,12 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { formatRelative } from 'date-fns';
 import { IconPlayerPlay } from '@tabler/icons';
 import styles from '../styles/MapForRegister.module.scss';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from '@reach/combobox';
 import Search from './Search';
+import Locate from './Locate';
+import { useAppDispatch } from '../hooks/redux';
+import { setLocation } from '../slices/userSlice';
 
 type Lib = (
   | 'places'
@@ -43,6 +34,7 @@ const options = {
 type SelectedState = { lat: number; lng: number } | null;
 
 export default function MapForRegister() {
+  const dispatch = useAppDispatch();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     libraries,
@@ -64,6 +56,9 @@ export default function MapForRegister() {
 
   const handleClick = (e: any) => {
     setMarked({ lat: e.latLng?.lat(), lng: e.latLng?.lng() });
+    dispatch(
+      setLocation({ location: { lat: e.latLng?.lat(), lng: e.latLng?.lng() } })
+    );
   };
 
   return (
@@ -73,6 +68,7 @@ export default function MapForRegister() {
         <h2>Sillevon</h2>
       </div>
       <Search panTo={panTo} />
+      <Locate panTo={panTo} />
       <GoogleMap
         onLoad={onMapLoad}
         zoom={zoom}

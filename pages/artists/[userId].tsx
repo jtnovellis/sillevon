@@ -82,12 +82,12 @@ const ArtistProfileClient: NextPage = () => {
         <div>
           <div className={styles.userStats}>
             <UserStats data={data} />
-            {/*  <Map
+            <Map
               zoom={11}
               center={{ lat: 10.96104, lng: -74.800957 }}
               className={styles.userMap}
               position={{ lat: 10.96104, lng: -74.800957 }}
-            /> */}
+            />
           </div>
         </div>
       </div>

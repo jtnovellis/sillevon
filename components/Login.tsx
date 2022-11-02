@@ -14,9 +14,11 @@ import {
   Stack,
 } from '@mantine/core';
 import { IconBrandGoogle, IconBrandTwitter } from '@tabler/icons';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 interface LoginProps {
-  Paper?: PaperProps;
+  closeAllModals: (payload_0?: undefined) => void;
 }
 
 interface UserValues {
@@ -26,8 +28,9 @@ interface UserValues {
   terms: boolean;
 }
 
-const Login = (props: LoginProps) => {
+const Login = ({ closeAllModals }: LoginProps) => {
   const [type, toggle] = useToggle(['login', 'register']);
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       email: '',
@@ -45,12 +48,34 @@ const Login = (props: LoginProps) => {
     },
   });
 
-  const handleSubmit = (values: UserValues) => {
+  const handleSubmit = async (values: UserValues) => {
     console.log(values);
+
+    if (type === 'register') {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_BACKEND_URI}/api/users/auth/local/signup`,
+          values
+        );
+        router.push('/registerStepper');
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_BACKEND_URI}/api/users/auth/local/signin`,
+          values
+        );
+        router.push('/');
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (
-    <Paper radius='md' p='xl' withBorder {...props}>
+    <Paper radius='md' p='xl' withBorder>
       <Text size='lg' weight={500}>
         Welcome to Sillevon, {type} with
       </Text>
@@ -68,7 +93,12 @@ const Login = (props: LoginProps) => {
 
       <Divider label='Or continue with email' labelPosition='center' my='lg' />
 
-      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+      <form
+        onSubmit={form.onSubmit((values) => {
+          closeAllModals();
+          handleSubmit(values);
+        })}
+      >
         <Stack>
           {type === 'register' && (
             <TextInput

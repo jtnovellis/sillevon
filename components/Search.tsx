@@ -13,12 +13,15 @@ import {
 import styles from '../styles/Search.module.scss';
 import '@reach/combobox/styles.css';
 import { PanToCallback } from './MapForRegister';
+import { useAppDispatch } from '../hooks/redux';
+import { setCity } from '../slices/userSlice';
 
 interface SearchProps {
   panTo: ({ lat, lng }: PanToCallback) => void;
 }
 
 export default function Search({ panTo }: SearchProps) {
+  const dispatch = useAppDispatch();
   const {
     ready,
     value,
@@ -27,7 +30,7 @@ export default function Search({ panTo }: SearchProps) {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 10.96104, lng: () => -74.800957 },
+      location: { lat: () => 4.60688, lng: () => -74.071838 },
       radius: 200 * 1000,
     },
   });
@@ -39,6 +42,7 @@ export default function Search({ panTo }: SearchProps) {
           clearSuggestions();
           try {
             const results = await getGeocode({ address });
+            dispatch(setCity({ city: results[0].formatted_address }));
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
           } catch (error) {
@@ -56,10 +60,12 @@ export default function Search({ panTo }: SearchProps) {
         />
 
         <ComboboxPopover>
-          {status === 'OK' &&
-            data.map(({ place_id, description }) => (
-              <ComboboxOption key={place_id} value={description} />
-            ))}
+          <ComboboxList>
+            {status === 'OK' &&
+              data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))}
+          </ComboboxList>
         </ComboboxPopover>
       </Combobox>
     </div>

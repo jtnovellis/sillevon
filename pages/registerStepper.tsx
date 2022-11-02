@@ -5,11 +5,13 @@ import styles from '../styles/RegisterStepper.module.scss';
 import UserMode from '../components/UserMode';
 import Sliders from '../components/Sliders';
 import { TuneUpProfilePhotos } from '../components/TuneUpProfilePhotos';
+import StepperDone from '../components/StepperDone';
 
 export default function RegisterStepper() {
   const [active, setActive] = useState(0);
-  const nextStep = () =>
+  const nextStep = async () => {
     setActive((current) => (current < 3 ? current + 1 : current));
+  };
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
   return (
@@ -64,16 +66,18 @@ export default function RegisterStepper() {
             <TuneUpProfilePhotos />
           </Stepper.Step>
           <Stepper.Completed>
-            Completed, click back button to get to previous step
+            <StepperDone />
           </Stepper.Completed>
         </Stepper>
 
-        <Group position='center' mt='xl'>
-          <Button variant='default' onClick={prevStep}>
-            Back
-          </Button>
-          <Button onClick={nextStep}>Next step</Button>
-        </Group>
+        {active !== 3 ? (
+          <Group position='center' mt='xl'>
+            <Button variant='default' onClick={prevStep}>
+              Back
+            </Button>
+            <Button onClick={nextStep}>Next step</Button>
+          </Group>
+        ) : null}
       </section>
     </Layout>
   );
