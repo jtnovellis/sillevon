@@ -30,7 +30,7 @@ export default function Search({ panTo }: SearchProps) {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 4.60688, lng: () => -74.071838 },
+      location: new google.maps.LatLng(4.60688, -74.071838),
       radius: 200 * 1000,
     },
   });
