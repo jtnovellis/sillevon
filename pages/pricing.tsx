@@ -1,11 +1,13 @@
 import { NextPage } from 'next';
 import Layout from '../components/Layout';
+import styles from '../styles/Pricing.module.scss';
 
 const Pricing: NextPage = () => {
   return (
     <Layout title='Sillevon | Pricing'>
-      <div>
-        <h1>This is pricing page</h1>
+      <div className={styles.pricing}>
+        <h1>Pricing page in development</h1>
+        <h2>Coming soon...</h2>
       </div>
     </Layout>
   );

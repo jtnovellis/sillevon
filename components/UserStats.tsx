@@ -8,6 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import styles from '../styles/UserStats.module.scss';
 
 ChartJS.register(
   RadialLinearScale,
@@ -36,5 +37,9 @@ interface UserStatsProps {
 }
 
 export default function UserStats({ data }: UserStatsProps) {
-  return <Radar data={data} />;
+  return (
+    <div className={styles.userStats}>
+      <Radar data={data} />
+    </div>
+  );
 }
