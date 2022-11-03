@@ -7,6 +7,7 @@ import Sliders from '../components/Sliders';
 import { TuneUpProfilePhotos } from '../components/TuneUpProfilePhotos';
 import StepperDone from '../components/StepperDone';
 import SelectGenres from '../components/SelectGenres';
+import { GetServerSideProps } from 'next';
 
 interface RegisterStepperProps {
   genres: {
@@ -97,7 +98,7 @@ export default function RegisterStepper({ genres }: RegisterStepperProps) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(`${process.env.BACKEND_URI}/api/genres`);
   const genres = await res.json();
   return {
