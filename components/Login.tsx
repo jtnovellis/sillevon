@@ -83,7 +83,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
           icon: <IconCheck size={16} />,
           autoClose: 4000,
         });
-        router.push('/registerStepper');
+        router.push('/register-stepper');
       } catch (e) {
         showNotification({
           id: 'load-data-user',
