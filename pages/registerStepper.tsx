@@ -100,7 +100,8 @@ export default function RegisterStepper({ genres }: RegisterStepperProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const genres = await loadGenres();
+  const res = await fetch(`${process.env.BACKEND_URI}/api/genres`);
+  const genres = await res.json();
   return {
     props: {
       genres: genres.data,
