@@ -94,7 +94,7 @@ export function TuneUpProfilePhotos() {
             className={classes.avatar}
           />
           <Text align='center' size='lg' weight={500} mt='sm'>
-            {name || 'Jairo'}
+            {name || 'Your Name'}
           </Text>
           <div className={classes.buttons}>
             <Button

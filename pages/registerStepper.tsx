@@ -6,9 +6,21 @@ import UserMode from '../components/UserMode';
 import Sliders from '../components/Sliders';
 import { TuneUpProfilePhotos } from '../components/TuneUpProfilePhotos';
 import StepperDone from '../components/StepperDone';
-import { useAppSelector } from '../hooks/redux';
+import { loadGenres } from '../lib/loadGenres';
+import SelectGenres from '../components/SelectGenres';
+import { GetStaticProps } from 'next';
 
-export default function RegisterStepper() {
+interface RegisterStepperProps {
+  genres: {
+    title: string;
+    instrumentation: string[];
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
+export default function RegisterStepper({ genres }: RegisterStepperProps) {
   const [active, setActive] = useState(0);
   const [isCustomer, setIsCustomer] = useState(false);
 
@@ -48,7 +60,7 @@ export default function RegisterStepper() {
             }
             allowStepSelect={active > 1}
           >
-            {!isCustomer ? null : <Sliders />}
+            {!isCustomer ? <SelectGenres genres={genres} /> : <Sliders />}
           </Stepper.Step>
           <Stepper.Step
             label='Tune up'
@@ -86,3 +98,12 @@ export default function RegisterStepper() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const genres = await loadGenres();
+  return {
+    props: {
+      genres: genres.data,
+    },
+  };
+};

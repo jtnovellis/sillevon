@@ -26,6 +26,13 @@ export interface UserState {
     instrumentation: number;
   };
   isLogged?: boolean;
+  favoriteGenres?: {
+    title: string;
+    instrumentation: string[];
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
 }
 
 const initialState: UserState = {
@@ -52,6 +59,7 @@ const initialState: UserState = {
     instrumentation: 0,
   },
   isLogged: false,
+  favoriteGenres: [],
 };
 
 export const userSlice = createSlice({
@@ -92,6 +100,10 @@ export const userSlice = createSlice({
       state.city = action.payload.city;
       state.location = action.payload.location;
       state.skills = action.payload.skills;
+      state.favoriteGenres = action.payload.favoriteGenres;
+    },
+    setFavoriteGenres: (state, action: PayloadAction<UserState>) => {
+      state.favoriteGenres = action.payload.favoriteGenres;
     },
   },
 });
@@ -107,6 +119,7 @@ export const {
   setBackground,
   setLogged,
   setOtherData,
+  setFavoriteGenres,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -8,8 +8,16 @@ import { IconCheck, IconBug } from '@tabler/icons';
 import { useRouter } from 'next/router';
 
 export default function StepperDone() {
-  const { email, avatar, background, mode, city, location, skills } =
-    useAppSelector((state) => state.user);
+  const {
+    email,
+    avatar,
+    background,
+    mode,
+    city,
+    location,
+    skills,
+    favoriteGenres,
+  } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -39,6 +47,7 @@ export default function StepperDone() {
           city,
           location,
           skills,
+          favoriteGenres,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -48,6 +57,7 @@ export default function StepperDone() {
           city: res.data.data.city,
           location: res.data.data.location,
           skills: res.data.data.skills,
+          favoriteGenres: res.data.data.favoriteGenres,
         })
       );
       showNotification({
@@ -72,6 +82,7 @@ export default function StepperDone() {
       });
     }
   };
+
   return (
     <div>
       <Center>
