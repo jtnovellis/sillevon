@@ -11,7 +11,7 @@ import { IconCheck, IconBug } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
 interface PostsProps {
-  id?: number | string;
+  _id?: number | string;
   urlImage: string;
   title: string;
   postId: string;
