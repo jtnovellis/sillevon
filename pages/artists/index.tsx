@@ -5,16 +5,18 @@ import styles from '../../styles/Artists.module.scss';
 import { musiciansOrBands } from '../../utils/musiciansMockData';
 import { MusicianSmallCard } from '../../components/MusicianSmallCard';
 import { SearcherBar } from '../../components/SearcherBar';
+import { ArtistsTable } from '../../components/ArtistsTable';
+import { data } from '../../utils/mockDataAllArtists';
 
 const Artists: NextPage = () => {
-  const musicians = musiciansOrBands.map((musician, i) => (
+  /* const musicians = musiciansOrBands.map((musician, i) => (
     <MusicianSmallCard
       image={musician.avatar}
       name={musician.name}
       email={musician.email}
       key={`${musician.name}${i}`}
     />
-  ));
+  )); */
   return (
     <Layout title='Sillevon | Artists'>
       <section className={styles.artistsContainer}>
@@ -30,7 +32,9 @@ const Artists: NextPage = () => {
           </div>
           <MusicianCarousel />
         </div>
-        <div className={styles.bundleArtists}>{musicians}</div>
+        <div className={styles.bundleArtists}>
+          <ArtistsTable data={data} />
+        </div>
       </section>
     </Layout>
   );

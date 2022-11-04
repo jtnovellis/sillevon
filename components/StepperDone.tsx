@@ -17,6 +17,7 @@ export default function StepperDone() {
     location,
     skills,
     favoriteGenres,
+    price,
   } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -48,6 +49,7 @@ export default function StepperDone() {
           location,
           skills,
           favoriteGenres,
+          price,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -58,6 +60,7 @@ export default function StepperDone() {
           location: res.data.data.location,
           skills: res.data.data.skills,
           favoriteGenres: res.data.data.favoriteGenres,
+          price: res.data.data.price,
         })
       );
       showNotification({

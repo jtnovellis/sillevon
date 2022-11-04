@@ -38,6 +38,7 @@ export default function Posts({
 
   return (
     <div className={styles.posts}>
+      <p>{title}</p>
       <div className={styles.postsImageContainer}>
         <Image
           src={urlImage}

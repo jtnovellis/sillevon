@@ -8,6 +8,7 @@ import { TuneUpProfilePhotos } from '../components/TuneUpProfilePhotos';
 import StepperDone from '../components/StepperDone';
 import SelectGenres from '../components/SelectGenres';
 import { GetServerSideProps } from 'next';
+import { loadGenres } from '../lib/loadGenres';
 
 interface RegisterStepperProps {
   genres: {
@@ -99,8 +100,7 @@ export default function RegisterStepper({ genres }: RegisterStepperProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.BACKEND_URI}/api/genres`);
-  const genres = await res.json();
+  const genres = await loadGenres();
   return {
     props: {
       genres: genres.data,
