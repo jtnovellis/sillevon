@@ -1,5 +1,4 @@
 import { Carousel } from '@mantine/carousel';
-import { NextPage } from 'next';
 import MusicianCard from './MusicianCard';
 
 const mockData = [
@@ -67,15 +66,27 @@ const mockData = [
     genre: 'Tropical',
   },
 ];
+interface MusicianCarouselProps {
+  data: {
+    imagesDone: {
+      avatar: string;
+    };
+    name: string;
+    email: string;
+    mode: string;
+    price: number;
+  }[];
+}
 
-const MusicianCarousel: NextPage = () => {
-  const musicians = mockData.map((musician, i) => (
-    <Carousel.Slide key={i}>
+const MusicianCarousel = ({ data }: MusicianCarouselProps) => {
+  const musicians = data.map((musician, i) => (
+    <Carousel.Slide key={`${i}${musician.email}`}>
       <MusicianCard
-        avatar={musician.avatar}
+        avatar={musician.imagesDone.avatar}
         name={musician.name}
-        instrument={musician.instrument}
-        genre={musician.genre}
+        instrument={musician.mode}
+        price={musician.price}
+        email={musician.email}
       />
     </Carousel.Slide>
   ));

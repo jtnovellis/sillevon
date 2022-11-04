@@ -1,19 +1,23 @@
 import { Avatar, Text, Button, Paper } from '@mantine/core';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 interface MusicianCardProps {
   avatar: string;
   name: string;
   instrument: string;
-  genre: string;
+  price: number;
+  email: string;
 }
 
 const MusicianCard: NextPage<MusicianCardProps> = ({
   avatar,
   name,
   instrument,
-  genre,
+  price,
+  email,
 }) => {
+  const router = useRouter();
   return (
     <Paper
       radius='md'
@@ -29,9 +33,15 @@ const MusicianCard: NextPage<MusicianCardProps> = ({
         {name}
       </Text>
       <Text align='center' color='dimmed' size='sm'>
-        {instrument} • {genre}
+        {instrument} • {price}/hr
       </Text>
-      <Button variant='default' fullWidth mt='md' radius='md'>
+      <Button
+        variant='default'
+        fullWidth
+        mt='md'
+        radius='md'
+        onClick={() => router.push(`/artists/${email}`)}
+      >
         Show more
       </Button>
     </Paper>

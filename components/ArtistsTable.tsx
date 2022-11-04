@@ -7,51 +7,48 @@ import {
   Menu,
   ScrollArea,
 } from '@mantine/core';
-import {
-  IconPencil,
-  IconMessages,
-  IconNote,
-  IconReportAnalytics,
-  IconTrash,
-  IconDots,
-} from '@tabler/icons';
+import { IconMessages, IconNote, IconDots } from '@tabler/icons';
+import { useRouter } from 'next/router';
 
 interface UsersStackProps {
   data: {
-    avatar: string;
+    imagesDone: {
+      avatar: string;
+    };
     name: string;
-    job: string;
     email: string;
-    rate: number;
+    mode: string;
+    price: number;
   }[];
 }
 
 export function ArtistsTable({ data }: UsersStackProps) {
-  const rows = data.map((item) => (
-    <tr key={item.name}>
+  const router = useRouter();
+  const rows = data.map((user) => (
+    <tr key={user.email}>
       <td>
         <Group spacing='sm'>
-          <Avatar size={40} src={item.avatar} radius={40} />
+          <Avatar size={40} src={user.imagesDone.avatar} radius={40} />
           <div>
             <Text size='sm' weight={500}>
-              {item.name}
+              {user.name}
             </Text>
             <Text color='dimmed' size='xs'>
-              {item.job}
+              {user.mode}
             </Text>
           </div>
         </Group>
       </td>
       <td>
-        <Text size='sm'>{item.email}</Text>
+        <Text size='sm'>{user.email}</Text>
         <Text size='xs' color='dimmed'>
           Email
         </Text>
       </td>
       <td>
-        <Text size='sm'>${item.rate.toFixed(1)} / hr</Text>
+        <Text size='sm'>${user.price} / hr</Text>
         <Text size='xs' color='dimmed'>
-          Rate
+          Price
         </Text>
       </td>
       <td>
@@ -63,7 +60,10 @@ export function ArtistsTable({ data }: UsersStackProps) {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<IconMessages size={16} stroke={1.5} />}>
+              <Menu.Item
+                icon={<IconMessages size={16} stroke={1.5} />}
+                onClick={() => router.push(`/artists/${user.email}`)}
+              >
                 Go to profile
               </Menu.Item>
               <Menu.Item icon={<IconNote size={16} stroke={1.5} />}>

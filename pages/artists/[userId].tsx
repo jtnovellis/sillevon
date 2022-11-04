@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../components/Layout';
 import { UserCard } from '../../components/UserCard';
 import UserStats from '../../components/UserStats';
@@ -7,14 +7,58 @@ import Posts from '../../components/Posts';
 import { posts } from '../../utils/mockPosts';
 import Map from '../../components/Map';
 
-const ArtistProfileClient: NextPage = () => {
+interface ArtistProfileClientProps {
+  user: {
+    imagesDone: {
+      avatar: string;
+      background: string;
+    };
+    location: {
+      lat: number;
+      lng: number;
+    };
+    skills: {
+      improvisation: number;
+      show: number;
+      repertoire: number;
+      versatility: number;
+      instrumentation: number;
+    };
+    name: string;
+    email: string;
+    terms: boolean;
+    mode: string;
+    favoriteGenres: [];
+    posts: {
+      likes: number;
+      _id: string;
+      title: string;
+      urlImage: string;
+      comments: {
+        body: string;
+        _id: string;
+        author: {
+          imagesDone: {
+            avatar: string;
+          };
+          name: string;
+        };
+        post: object;
+        createdAt: string;
+        updatedAt: string;
+      }[];
+    }[];
+    city: string;
+    price: number;
+  };
+}
+
+const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
   const mockData = {
-    image:
-      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-    avatar:
-      'https://images.unsplash.com/photo-1623582854588-d60de57fa33f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
-    name: 'Bill Headbanger',
-    job: 'Trumpetist',
+    image: user.imagesDone.background,
+    avatar: user.imagesDone.avatar,
+    name: user.name,
+    job: user.mode,
     stats: [
       {
         value: 34,
@@ -25,7 +69,7 @@ const ArtistProfileClient: NextPage = () => {
         label: 'Connections',
       },
       {
-        value: posts.length,
+        value: user.posts.length,
         label: 'Posts',
       },
     ],
@@ -37,13 +81,18 @@ const ArtistProfileClient: NextPage = () => {
       'Versatility',
       'Repertoire',
       'Instrumentation',
-
       'Show',
     ],
     datasets: [
       {
         label: 'Skills',
-        data: [62, 96, 34, 58, 38],
+        data: [
+          user.skills.improvisation,
+          user.skills.versatility,
+          user.skills.repertoire,
+          user.skills.instrumentation,
+          user.skills.show,
+        ],
         fill: true,
         backgroundColor: 'rgba(59, 130, 245, 0.2)',
         borderColor: 'rgb(59, 130, 245)',
@@ -69,12 +118,13 @@ const ArtistProfileClient: NextPage = () => {
           </div>
         </div>
         <div className={styles.allPosts}>
-          {posts.map((post) => (
+          {user.posts.map((post) => (
             <Posts
-              key={post.id}
+              key={post._id}
+              postId={post._id}
               urlImage={post.urlImage}
               title={post.title}
-              likes={post.likes}
+              likesAmount={post.likes}
               comments={post.comments}
             />
           ))}
@@ -96,3 +146,21 @@ const ArtistProfileClient: NextPage = () => {
 };
 
 export default ArtistProfileClient;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { params } = context;
+  let user;
+  if (params) {
+    const res = await fetch(
+      `${process.env.BACKEND_URI}/api/users/artist-email/${params.userId}`,
+      {
+        method: 'GET',
+      }
+    );
+    user = await res.json();
+  }
+  console.log(user);
+  return {
+    props: { user: user.data },
+  };
+};
