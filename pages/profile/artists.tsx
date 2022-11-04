@@ -4,15 +4,18 @@ import Posts from '../../components/Posts';
 import UserStats from '../../components/UserStats';
 import Map from '../../components/Map';
 import { UserCardProfile } from '../../components/UserCardProfile';
-import { useAppSelector } from '../../hooks/redux';
 import { GetServerSideProps } from 'next';
 import { Center, Text } from '@mantine/core';
+import { useAppDispatch } from '../../hooks/redux';
+import { setAvatar } from '../../slices/userSlice';
 
 interface ArtistsProfileProps {
   user: any;
 }
 
 export default function ArtistsProfile({ user }: ArtistsProfileProps) {
+  const dispatch = useAppDispatch();
+  dispatch(setAvatar({ avatar: user.imagesDone.avatar }));
   const data = {
     labels: [
       'Improvisation',
@@ -54,9 +57,10 @@ export default function ArtistsProfile({ user }: ArtistsProfileProps) {
             user.posts.map((post: any) => (
               <Posts
                 key={post._id}
+                postId={post._id}
                 urlImage={post.urlImage}
                 title={post.title}
-                likes={post.likes}
+                likesAmount={post.likes}
                 comments={post.comments}
               />
             ))
@@ -71,9 +75,9 @@ export default function ArtistsProfile({ user }: ArtistsProfileProps) {
             <UserStats data={data} />
             <Map
               zoom={11}
-              center={user.location || { lat: 10.96104, lng: -74.800957 }}
+              center={user.location}
               className={styles.userProfileMap}
-              position={user.location || { lat: 10.96104, lng: -74.800957 }}
+              position={user.location}
             />
           </div>
         </div>

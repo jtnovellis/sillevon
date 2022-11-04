@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Navbar, Group, Avatar, Button, Text } from '@mantine/core';
 import {
   IconBellRinging,
@@ -11,6 +11,8 @@ import {
 import { useUserNavProfile } from './ui/useUserNavProfile';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '../hooks/redux';
+import { openModal, closeAllModals } from '@mantine/modals';
+import AddPost from './AddPost';
 
 const data = [
   { label: 'Notifications', icon: IconBellRinging },
@@ -39,6 +41,12 @@ export function UserCardProfile({ avatar, name }: UserCardProfileProps) {
       key={item.label}
       onClick={() => {
         setActive(item.label);
+        if (item.label === 'Add a Post') {
+          openModal({
+            title: 'Add a post',
+            children: <AddPost closeAllModals={closeAllModals} />,
+          });
+        }
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
