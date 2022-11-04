@@ -30,7 +30,6 @@ interface UserCardProfileProps {
 export function UserCardProfile({ avatar, name }: UserCardProfileProps) {
   const { classes, cx } = useUserNavProfile();
   const [active, setActive] = useState('');
-  const { imagesDone } = useAppSelector((state) => state.user);
 
   const links = data.map((item) => (
     <Button

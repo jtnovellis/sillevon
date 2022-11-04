@@ -22,7 +22,6 @@ import Login from './Login';
 import { useAppSelector } from '../hooks/redux';
 import Cookies from 'js-cookie';
 import { useJwt } from 'react-jwt';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 const HeaderNav: NextPage = () => {

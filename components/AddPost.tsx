@@ -1,5 +1,5 @@
 import { Button, TextInput } from '@mantine/core';
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import Image from 'next/image';
 import { DropZone } from './DropZone';
 import style from '../styles/AddPost.module.scss';

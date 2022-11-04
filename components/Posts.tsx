@@ -17,13 +17,17 @@ interface PostsProps {
   postId: string;
   likesAmount: number;
   comments: {
-    id: number;
-    postedAt: string;
     body: string;
+    _id: string;
     author: {
+      imagesDone: {
+        avatar: string;
+      };
       name: string;
-      image: string;
     };
+    post: object;
+    createdAt: string;
+    updatedAt: string;
   }[];
 }
 
@@ -35,20 +39,23 @@ export default function Posts({
   comments,
 }: PostsProps) {
   const [likeLoading, setLikeloading] = useState(false);
+  const [likesToRender, setLikesToRender] = useState(likesAmount);
+  const [commentsToRender, setCommentsToRender] = useState(comments);
 
-  const commentsAmount = comments.length || 0;
+  const commentsAmount = commentsToRender.length || 0;
 
   async function handleClick() {
     const token = Cookies.get('sillusr');
     setLikeloading(true);
     try {
-      await axios.put(
+      const res = await axios.put(
         `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/posts/update/${postId}`,
         {
           likes: likesAmount + 1,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      setLikesToRender(res.data.data.likes);
       showNotification({
         id: 'load-data-user',
         color: 'teal',
@@ -58,7 +65,6 @@ export default function Posts({
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
-      window.location.assign('/profile/artists');
     } catch {
       showNotification({
         id: 'load-data-user',
@@ -103,13 +109,12 @@ export default function Posts({
               openModal({
                 title: 'Comments',
                 children: (
-                  <div className={styles.allComments}>
-                    <Comments
-                      comments={comments}
-                      postId={postId}
-                      closeAllModals={closeAllModals}
-                    />
-                  </div>
+                  <Comments
+                    comments={commentsToRender}
+                    setComment={setCommentsToRender}
+                    postId={postId}
+                    closeAllModals={closeAllModals}
+                  />
                 ),
               });
             }}
@@ -118,7 +123,7 @@ export default function Posts({
           </ActionIcon>
         </div>
         <div className={styles.postsInfoTriggers}>
-          <span>{likesAmount} Likes</span>
+          <span>{likesToRender} Likes</span>
           <span>{commentsAmount} Comments</span>
         </div>
       </div>
