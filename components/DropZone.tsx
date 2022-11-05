@@ -1,14 +1,16 @@
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useAppDispatch } from '../hooks/redux';
 import { setAvatar, setBackground } from '../slices/userSlice';
+import { Dispatch, SetStateAction } from 'react';
 
 interface DropZoneProps {
   type: string;
+  setImage?: Dispatch<SetStateAction<null | FileWithPath>> | undefined;
 }
 
-export function DropZone({ type }: DropZoneProps) {
+export function DropZone({ type, setImage }: DropZoneProps) {
   const theme = useMantineTheme();
   const dispatch = useAppDispatch();
   return (
@@ -18,6 +20,8 @@ export function DropZone({ type }: DropZoneProps) {
           dispatch(setAvatar({ avatar: files[0] }));
         } else if (type === 'background') {
           dispatch(setBackground({ background: files[0] }));
+        } else if (type === 'post' && setImage) {
+          setImage(files[0]);
         }
       }}
       onReject={(files) => console.log('rejected files', files)}

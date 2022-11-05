@@ -10,6 +10,7 @@ export interface UserState {
   terms?: boolean;
   mode?: string;
   city?: string;
+  price?: number;
   imagesDone?: {
     avatar: string;
     background: string;
@@ -26,6 +27,7 @@ export interface UserState {
     instrumentation: number;
   };
   isLogged?: boolean;
+  posts?: [];
   favoriteGenres?: {
     title: string;
     instrumentation: string[];
@@ -43,6 +45,7 @@ const initialState: UserState = {
   terms: false,
   mode: '',
   city: '',
+  price: 0,
   imagesDone: {
     avatar: '',
     background: '',
@@ -53,13 +56,14 @@ const initialState: UserState = {
   },
   skills: {
     improvisation: 0,
-    show: 0,
-    repertoire: 0,
     versatility: 0,
+    repertoire: 0,
     instrumentation: 0,
+    show: 0,
   },
   isLogged: false,
   favoriteGenres: [],
+  posts: [],
 };
 
 export const userSlice = createSlice({
@@ -105,6 +109,9 @@ export const userSlice = createSlice({
     setFavoriteGenres: (state, action: PayloadAction<UserState>) => {
       state.favoriteGenres = action.payload.favoriteGenres;
     },
+    setPriceToSlice: (state, action: PayloadAction<UserState>) => {
+      state.price = action.payload.price;
+    },
   },
 });
 
@@ -118,6 +125,7 @@ export const {
   setAvatar,
   setBackground,
   setLogged,
+  setPriceToSlice,
   setOtherData,
   setFavoriteGenres,
 } = userSlice.actions;

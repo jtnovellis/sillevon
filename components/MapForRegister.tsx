@@ -11,6 +11,7 @@ import Search from './Search';
 import Locate from './Locate';
 import { useAppDispatch } from '../hooks/redux';
 import { setLocation } from '../slices/userSlice';
+import { Loader } from '@mantine/core';
 
 type Lib = (
   | 'places'
@@ -52,7 +53,7 @@ export default function MapForRegister() {
   const [marked, setMarked] = useState({ lat: 0, lng: 0 });
   const [selected, setSelected] = useState<SelectedState>(null);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <Loader />;
 
   const handleClick = (e: any) => {
     setMarked({ lat: e.latLng?.lat(), lng: e.latLng?.lng() });

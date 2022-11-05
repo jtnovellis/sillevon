@@ -1,40 +1,84 @@
 import styles from '../styles/Posts.module.scss';
 import Image from 'next/image';
-import { ActionIcon, Button, TextInput } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 import { IconHeart, IconMessageDots } from '@tabler/icons';
 import { useState } from 'react';
 import { openModal, closeAllModals } from '@mantine/modals';
 import Comments from './Comments';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { IconCheck, IconBug } from '@tabler/icons';
+import { showNotification } from '@mantine/notifications';
 
 interface PostsProps {
-  id?: number | string;
+  _id?: number | string;
   urlImage: string;
   title: string;
-  likes: number;
+  postId: string;
+  likesAmount: number;
   comments: {
-    id: number;
-    postedAt: string;
     body: string;
+    _id: string;
     author: {
+      imagesDone: {
+        avatar: string;
+      };
       name: string;
-      image: string;
     };
+    post: object;
+    createdAt: string;
+    updatedAt: string;
   }[];
 }
 
 export default function Posts({
+  postId,
   urlImage,
   title,
-  likes,
+  likesAmount,
   comments,
 }: PostsProps) {
   const [likeLoading, setLikeloading] = useState(false);
+  const [likesToRender, setLikesToRender] = useState(likesAmount);
+  const [commentsToRender, setCommentsToRender] = useState(comments);
 
-  const commentsAmount = comments.length || 0;
+  const commentsAmount = commentsToRender.length || 0;
 
-  const handleModalClick = () => {
-    closeAllModals();
-  };
+  async function handleClick() {
+    const token = Cookies.get('sillusr');
+    setLikeloading(true);
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/posts/update/${postId}`,
+        {
+          likes: likesAmount + 1,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setLikesToRender(res.data.data.likes);
+      showNotification({
+        id: 'load-data-user',
+        color: 'teal',
+        title: 'Like was created successfully',
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconCheck size={16} />,
+        autoClose: 4000,
+      });
+    } catch {
+      showNotification({
+        id: 'load-data-user',
+        color: 'red',
+        title: 'Like could not been created',
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconBug size={16} />,
+        autoClose: 4000,
+      });
+    } finally {
+      setLikeloading(false);
+    }
+  }
 
   return (
     <div className={styles.posts}>
@@ -47,9 +91,15 @@ export default function Posts({
           className={styles.postsImage}
         />
       </div>
+      <p className={styles.postFooter}>{title}</p>
       <div className={styles.postsInfo}>
         <div className={styles.postsTriggers}>
-          <ActionIcon radius='md' variant='transparent' loading={likeLoading}>
+          <ActionIcon
+            radius='md'
+            variant='transparent'
+            loading={likeLoading}
+            onClick={handleClick}
+          >
             <IconHeart size={28} />
           </ActionIcon>
           <ActionIcon
@@ -59,26 +109,12 @@ export default function Posts({
               openModal({
                 title: 'Comments',
                 children: (
-                  <>
-                    <div className={styles.allComments}>
-                      {comments.map((comment) => (
-                        <Comments
-                          key={comment.id}
-                          postedAt={comment.postedAt}
-                          body={comment.body}
-                          author={comment.author}
-                        />
-                      ))}
-                    </div>
-                    <TextInput
-                      label='Leave a comment'
-                      placeholder='Your comment'
-                      data-autofocus
-                    />
-                    <Button fullWidth onClick={handleModalClick} mt='md'>
-                      Send
-                    </Button>
-                  </>
+                  <Comments
+                    comments={commentsToRender}
+                    setComment={setCommentsToRender}
+                    postId={postId}
+                    closeAllModals={closeAllModals}
+                  />
                 ),
               });
             }}
@@ -87,7 +123,7 @@ export default function Posts({
           </ActionIcon>
         </div>
         <div className={styles.postsInfoTriggers}>
-          <span>{likes} Likes</span>
+          <span>{likesToRender} Likes</span>
           <span>{commentsAmount} Comments</span>
         </div>
       </div>

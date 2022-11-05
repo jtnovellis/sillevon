@@ -10,6 +10,7 @@ import {
   ScrollArea,
   Avatar,
   useMantineColorScheme,
+  ActionIcon,
 } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { useDisclosure } from '@mantine/hooks';
@@ -19,13 +20,21 @@ import { useHeaderStyles } from './ui/useHeaderStyles';
 import { NextPage } from 'next';
 import Login from './Login';
 import { useAppSelector } from '../hooks/redux';
+import Cookies from 'js-cookie';
+import { useJwt } from 'react-jwt';
+import { useRouter } from 'next/router';
 
 const HeaderNav: NextPage = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useHeaderStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { isLogged, imagesDone } = useAppSelector((state) => state.user);
+  const { imagesDone } = useAppSelector((state) => state.user);
+  const router = useRouter();
+
+  const user = Cookies.get('sillusr');
+  const { isExpired } = useJwt(user as string);
+  const auth = isExpired;
 
   return (
     <Box>
@@ -66,7 +75,7 @@ const HeaderNav: NextPage = () => {
                 />
               }
             />
-            {!isLogged ? (
+            {auth ? (
               <Button
                 variant='default'
                 onClick={() => {
@@ -79,9 +88,12 @@ const HeaderNav: NextPage = () => {
                 Log in
               </Button>
             ) : (
-              <button className={classes.avatar}>
+              <ActionIcon
+                className={classes.avatar}
+                onClick={() => router.push('/profile/artists')}
+              >
                 <Avatar src={imagesDone?.avatar} radius='xl' />
-              </button>
+              </ActionIcon>
             )}
           </Group>
           <Burger

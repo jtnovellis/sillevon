@@ -103,6 +103,13 @@ const Login = ({ closeAllModals }: LoginProps) => {
         );
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
+        dispatch(
+          addUserData({
+            name: res.data.data.name,
+            email: res.data.data.email,
+            imagesDone: res.data.data.imagesDone,
+          })
+        );
         showNotification({
           id: 'load-data-user',
           color: 'teal',

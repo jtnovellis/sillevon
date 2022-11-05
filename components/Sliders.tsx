@@ -2,7 +2,7 @@ import { Center, Slider, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import styles from '../styles/Sliders.module.scss';
-import { setSkills } from '../slices/userSlice';
+import { setSkills, setPriceToSlice } from '../slices/userSlice';
 
 export default function Sliders() {
   const [improvisation, setImprovisation] = useState(30);
@@ -10,9 +10,11 @@ export default function Sliders() {
   const [repertoire, setRepertoire] = useState(30);
   const [versatility, setVersatility] = useState(30);
   const [instrumentation, setInstrumentation] = useState(30);
+  const [price, setPrice] = useState(10);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(setPriceToSlice({ price }));
     dispatch(
       setSkills({
         skills: {
@@ -24,7 +26,15 @@ export default function Sliders() {
         },
       })
     );
-  }, [improvisation, show, repertoire, versatility, instrumentation, dispatch]);
+  }, [
+    improvisation,
+    show,
+    repertoire,
+    price,
+    versatility,
+    instrumentation,
+    dispatch,
+  ]);
 
   return (
     <div className={styles.sliders}>
@@ -38,7 +48,7 @@ export default function Sliders() {
           weight={700}
           style={{ fontFamily: 'Greycliff CF, sans-serif' }}
         >
-          Select your skills
+          Select your skills and price
         </Text>
       </Center>
       <div className={styles.eachOneSlider}>
@@ -113,6 +123,23 @@ export default function Sliders() {
             { value: 0, label: '0%' },
             { value: 50, label: '50%' },
             { value: 100, label: '100%' },
+          ]}
+        />
+      </div>
+      <div className={styles.eachOneSlider}>
+        <p>Set your price peer hour</p>
+        <Slider
+          value={price}
+          onChange={setPrice}
+          labelTransition='skew-down'
+          labelTransitionDuration={150}
+          labelTransitionTimingFunction='ease'
+          marks={[
+            { value: 10, label: '$10/hr' },
+            { value: 30, label: '$30/hr' },
+            { value: 50, label: '$50/hr' },
+            { value: 70, label: '$70/hr' },
+            { value: 100, label: '$100/hr' },
           ]}
         />
       </div>
