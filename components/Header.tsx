@@ -144,8 +144,26 @@ const HeaderNav: NextPage = () => {
                 />
               }
             />
-            <Button variant='default'>Log in</Button>
-            <Button>Sign up</Button>
+            {auth ? (
+              <Button
+                variant='default'
+                onClick={() => {
+                  openModal({
+                    title: 'Stay with us',
+                    children: <Login closeAllModals={closeAllModals} />,
+                  });
+                }}
+              >
+                Log in
+              </Button>
+            ) : (
+              <ActionIcon
+                className={classes.avatar}
+                onClick={() => router.push('/profile/artists')}
+              >
+                <Avatar src={imagesDone?.avatar} radius='xl' />
+              </ActionIcon>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

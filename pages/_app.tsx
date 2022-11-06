@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const toggleColorScheme = (value?: ColorScheme) => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   };
+
   return (
     <Provider store={store}>
       <ColorSchemeProvider
