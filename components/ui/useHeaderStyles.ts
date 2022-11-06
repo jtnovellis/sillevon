@@ -1,6 +1,9 @@
 import { createStyles } from '@mantine/core';
 
 export const useHeaderStyles = createStyles((theme) => ({
+  container: {
+    zIndex: 100,
+  },
   link: {
     display: 'flex',
     alignItems: 'center',

@@ -36,8 +36,10 @@ const HeaderNav: NextPage = () => {
   const { isExpired } = useJwt(user as string);
   const auth = isExpired;
 
+  const mode = Cookies.get('mode');
+
   return (
-    <Box>
+    <Box className={classes.container}>
       <Header height={75} px='md' className={classes.header}>
         <Group position='apart' sx={{ height: '100%' }}>
           <Link href='/'>
@@ -90,7 +92,13 @@ const HeaderNav: NextPage = () => {
             ) : (
               <ActionIcon
                 className={classes.avatar}
-                onClick={() => router.push('/profile/artists')}
+                onClick={() => {
+                  if (mode === 'customer') {
+                    router.push('/profile/client');
+                  } else {
+                    router.push('/profile/artists');
+                  }
+                }}
               >
                 <Avatar src={imagesDone?.avatar} radius='xl' />
               </ActionIcon>
@@ -159,7 +167,13 @@ const HeaderNav: NextPage = () => {
             ) : (
               <ActionIcon
                 className={classes.avatar}
-                onClick={() => router.push('/profile/artists')}
+                onClick={() => {
+                  if (mode === 'customer') {
+                    router.push('/profile/client');
+                  } else {
+                    router.push('/profile/artists');
+                  }
+                }}
               >
                 <Avatar src={imagesDone?.avatar} radius='xl' />
               </ActionIcon>

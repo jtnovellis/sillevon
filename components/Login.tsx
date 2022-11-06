@@ -69,11 +69,14 @@ const Login = ({ closeAllModals }: LoginProps) => {
             name: res.data.data.name,
             email: res.data.data.email,
             imagesDone: res.data.data.imagesDone,
+            mode: res.data.data.mode,
           })
         );
         dispatch(setLogged({ isLogged: true }));
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
+        Cookies.remove('mode');
+        Cookies.set('mode', res.data.data.mode, { expires: 1 });
         showNotification({
           id: 'load-data-user',
           color: 'teal',
@@ -103,11 +106,14 @@ const Login = ({ closeAllModals }: LoginProps) => {
         );
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
+        Cookies.remove('mode');
+        Cookies.set('mode', res.data.data.mode, { expires: 1 });
         dispatch(
           addUserData({
             name: res.data.data.name,
             email: res.data.data.email,
             imagesDone: res.data.data.imagesDone,
+            mode: res.data.data.mode,
           })
         );
         showNotification({

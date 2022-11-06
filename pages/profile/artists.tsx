@@ -88,14 +88,17 @@ export default function ArtistsProfile({ user }: ArtistsProfileProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['sillusr'];
-  const res = await fetch(`${process.env.BACKEND_URI}/api/users/datauser`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const user = await res.json();
+  let userData;
+  if (token) {
+    const res = await fetch(`${process.env.BACKEND_URI}/api/users/datauser`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    userData = await res.json();
+  }
   return {
-    props: { user: user.data },
+    props: { user: userData.data },
   };
 };

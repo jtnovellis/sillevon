@@ -9,7 +9,7 @@ interface UserModeProps {
 }
 
 export default function UserMode({ setIsCustomer }: UserModeProps) {
-  const [mode, setMode] = useState('custumer');
+  const [mode, setMode] = useState('customer');
   const dispatch = useAppDispatch();
 
   useEffect(() => {

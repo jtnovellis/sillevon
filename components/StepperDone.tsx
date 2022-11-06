@@ -57,6 +57,8 @@ export default function StepperDone() {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      Cookies.remove('mode');
+      Cookies.set('mode', res.data.data.mode);
       dispatch(
         setOtherData({
           mode: res.data.data.mode,
