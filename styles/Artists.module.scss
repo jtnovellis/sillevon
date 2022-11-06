@@ -16,10 +16,22 @@
   max-width: 1200px;
 }
 .headerArtists {
-  margin: 7rem 0 1rem 0;
-  text-align: center;
+  margin: 7rem 0 0 0;
+  min-width: 20rem;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    text-align: center;
+  }
 }
 .searcherBar {
   margin: 0 auto;
   max-width: 60rem;
+}
+.filterSection {
+  margin: 0 auto;
+  margin-top: 2rem;
+  display: flex;
+  width: 18rem;
+  justify-content: space-between;
 }

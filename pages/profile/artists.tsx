@@ -95,7 +95,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   });
   const user = await res.json();
-  console.log(user);
   return {
     props: { user: user.data },
   };

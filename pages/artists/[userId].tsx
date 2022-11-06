@@ -1,11 +1,11 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { UserCard } from '../../components/UserCard';
 import UserStats from '../../components/UserStats';
 import styles from '../../styles/UserIdArtists.module.scss';
 import Posts from '../../components/Posts';
-import { posts } from '../../utils/mockPosts';
 import Map from '../../components/Map';
+import { Center, Text } from '@mantine/core';
 
 interface ArtistProfileClientProps {
   user: {
@@ -50,6 +50,8 @@ interface ArtistProfileClientProps {
     }[];
     city: string;
     price: number;
+    genre: string;
+    instrument: string;
   };
 }
 
@@ -118,16 +120,22 @@ const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
           </div>
         </div>
         <div className={styles.allPosts}>
-          {user.posts.map((post) => (
-            <Posts
-              key={post._id}
-              postId={post._id}
-              urlImage={post.urlImage}
-              title={post.title}
-              likesAmount={post.likes}
-              comments={post.comments}
-            />
-          ))}
+          {user.posts.length > 0 ? (
+            user.posts.map((post) => (
+              <Posts
+                key={post._id}
+                postId={post._id}
+                urlImage={post.urlImage}
+                title={post.title}
+                likesAmount={post.likes}
+                comments={post.comments}
+              />
+            ))
+          ) : (
+            <Center>
+              <Text>There is not posts</Text>
+            </Center>
+          )}
         </div>
         <div>
           <div className={styles.userStats}>
@@ -159,7 +167,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
     user = await res.json();
   }
-  console.log(user);
   return {
     props: { user: user.data },
   };

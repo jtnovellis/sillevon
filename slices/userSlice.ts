@@ -35,6 +35,8 @@ export interface UserState {
     createdAt: string;
     updatedAt: string;
   }[];
+  genre?: string;
+  instrument?: string;
 }
 
 const initialState: UserState = {
@@ -64,6 +66,8 @@ const initialState: UserState = {
   isLogged: false,
   favoriteGenres: [],
   posts: [],
+  genre: '',
+  instrument: '',
 };
 
 export const userSlice = createSlice({
@@ -105,12 +109,20 @@ export const userSlice = createSlice({
       state.location = action.payload.location;
       state.skills = action.payload.skills;
       state.favoriteGenres = action.payload.favoriteGenres;
+      state.genre = action.payload.genre;
+      state.instrument = action.payload.instrument;
     },
     setFavoriteGenres: (state, action: PayloadAction<UserState>) => {
       state.favoriteGenres = action.payload.favoriteGenres;
     },
     setPriceToSlice: (state, action: PayloadAction<UserState>) => {
       state.price = action.payload.price;
+    },
+    setSliceGenre: (state, action: PayloadAction<UserState>) => {
+      state.genre = action.payload.genre;
+    },
+    setSliceInstrumentation: (state, action: PayloadAction<UserState>) => {
+      state.instrument = action.payload.instrument;
     },
   },
 });
@@ -119,6 +131,8 @@ export const {
   addUserData,
   setUserMode,
   setSkills,
+  setSliceInstrumentation,
+  setSliceGenre,
   setCity,
   setLocation,
   setImages,

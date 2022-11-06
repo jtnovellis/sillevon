@@ -13,6 +13,8 @@ export default function StepperDone() {
     avatar,
     background,
     mode,
+    genre,
+    instrument,
     city,
     location,
     skills,
@@ -47,6 +49,8 @@ export default function StepperDone() {
           mode,
           city,
           location,
+          genre,
+          instrument,
           skills,
           favoriteGenres,
           price,
@@ -61,6 +65,8 @@ export default function StepperDone() {
           skills: res.data.data.skills,
           favoriteGenres: res.data.data.favoriteGenres,
           price: res.data.data.price,
+          genre: res.data.data.genre,
+          instrument: res.data.data.instrument,
         })
       );
       showNotification({

@@ -1,8 +1,13 @@
-import { Center, Slider, Text } from '@mantine/core';
+import { Center, Slider, Text, TextInput, Select } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import styles from '../styles/Sliders.module.scss';
-import { setSkills, setPriceToSlice } from '../slices/userSlice';
+import {
+  setSkills,
+  setPriceToSlice,
+  setSliceGenre,
+  setSliceInstrumentation,
+} from '../slices/userSlice';
 
 export default function Sliders() {
   const [improvisation, setImprovisation] = useState(30);
@@ -11,10 +16,16 @@ export default function Sliders() {
   const [versatility, setVersatility] = useState(30);
   const [instrumentation, setInstrumentation] = useState(30);
   const [price, setPrice] = useState(10);
+  const [genre, setGenre] = useState<string>('');
+  const [instrument, setInstrument] = useState<string>('');
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setPriceToSlice({ price }));
+    dispatch(setSliceGenre({ genre }));
+    dispatch(
+      setSliceInstrumentation({ instrument: instrument?.toLowerCase() })
+    );
     dispatch(
       setSkills({
         skills: {
@@ -30,7 +41,9 @@ export default function Sliders() {
     improvisation,
     show,
     repertoire,
+    instrument,
     price,
+    genre,
     versatility,
     instrumentation,
     dispatch,
@@ -51,6 +64,47 @@ export default function Sliders() {
           Select your skills and price
         </Text>
       </Center>
+      <div className={styles.genreAndInstrument}>
+        <TextInput
+          value={instrument}
+          onChange={(e) => setInstrument(e.target.value)}
+          placeholder='Type your instrument or band in case'
+          label='Instument/Band'
+          withAsterisk
+          radius='xl'
+        />
+        <Select
+          value={genre}
+          withAsterisk
+          onChange={(value) => setGenre(value as string)}
+          label='Your favorite genre'
+          placeholder='Pick one genre'
+          searchable
+          nothingFound='No options'
+          radius='xl'
+          clearable
+          transition='pop-top-left'
+          transitionDuration={80}
+          transitionTimingFunction='ease'
+          data={[
+            { value: 'Rock', label: 'Rock' },
+            { value: 'Pop music', label: 'Pop music' },
+            { value: 'Popular music', label: 'Popular music' },
+            { value: 'Jazz', label: 'Jazz' },
+            { value: 'Blues', label: 'Blues' },
+            { value: 'Reggaeton', label: 'Reggaeton' },
+            { value: 'Cubana', label: 'Cubana' },
+            { value: 'Reggae', label: 'Reggae' },
+            { value: 'Vallenato', label: 'Vallenato' },
+            { value: 'Salsa', label: 'Salsa' },
+            { value: 'Cumbia', label: 'Cumbia' },
+            { value: 'Classical music', label: 'Classical music' },
+            { value: 'Floklore', label: 'Floklore' },
+            { value: 'Flamenco', label: 'Flamenco' },
+            { value: 'Merengue', label: 'Merengue' },
+          ]}
+        />
+      </div>
       <div className={styles.eachOneSlider}>
         <p>Improvisation</p>
         <Slider
