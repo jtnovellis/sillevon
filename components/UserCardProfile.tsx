@@ -62,7 +62,6 @@ export function UserCardProfile({ avatar, name }: UserCardProfileProps) {
         </Group>
         {links}
       </Navbar.Section>
-
       <Navbar.Section className={classes.footer}>
         <Button
           variant='outline'

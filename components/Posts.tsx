@@ -1,6 +1,6 @@
 import styles from '../styles/Posts.module.scss';
 import Image from 'next/image';
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, Avatar, Group, Text } from '@mantine/core';
 import { IconHeart, IconMessageDots } from '@tabler/icons';
 import { useState } from 'react';
 import { openModal, closeAllModals } from '@mantine/modals';
@@ -11,6 +11,7 @@ import { IconCheck, IconBug } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
 interface PostsProps {
+  user?: any;
   _id?: number | string;
   urlImage: string;
   title: string;
@@ -37,6 +38,7 @@ export default function Posts({
   title,
   likesAmount,
   comments,
+  user,
 }: PostsProps) {
   const [likeLoading, setLikeloading] = useState(false);
   const [likesToRender, setLikesToRender] = useState(likesAmount);
@@ -49,7 +51,7 @@ export default function Posts({
     setLikeloading(true);
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/posts/update/${postId}`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/posts/update/${postId}`,
         {
           likes: likesAmount + 1,
         },
@@ -82,6 +84,17 @@ export default function Posts({
 
   return (
     <div className={styles.posts}>
+      {user && (
+        <Group className={styles.postshead}>
+          <Avatar
+            src={user.imagesDone.avatar}
+            alt={user.name}
+            radius='xl'
+            size={30}
+          />
+          <Text>{user.name}</Text>
+        </Group>
+      )}
       <div className={styles.postsImageContainer}>
         <Image
           src={urlImage}

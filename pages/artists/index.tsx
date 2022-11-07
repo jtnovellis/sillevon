@@ -54,7 +54,7 @@ const Artists = ({ artistsList, artistsRecomended }: ArtistsProps) => {
     try {
       setIconLoading(true);
       const resRecomended = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/filtered-artists?limit=5&page=1&city=${city}&genre=${search.genre}&price=${search.instrument}&instrument=${search.instrument}`
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/filtered-artists?limit=5&page=1&city=${city}&genre=${search.genre}&price=${search.instrument}&instrument=${search.instrument}`
       );
       if (resRecomended.data.data.docs.length > 0) {
         setArtistsRecomendedFiltered(resRecomended.data.data.docs);
@@ -62,7 +62,7 @@ const Artists = ({ artistsList, artistsRecomended }: ArtistsProps) => {
         throw new Error('There are not artist in this location');
       }
       const resList = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/filtered-artists?limit=10&page=1&city=${city}&genre=${search.genre}&price=${search.instrument}&instrument=${search.instrument}`
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/filtered-artists?limit=10&page=1&city=${city}&genre=${search.genre}&price=${search.instrument}&instrument=${search.instrument}`
       );
       if (resList.data.data.docs.length > 0) {
         setArtistListFiltered(resList.data.data.docs);
@@ -180,14 +180,14 @@ export default Artists;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const resCarousel = await fetch(
-    `${process.env.BACKEND_URI}/api/users/artist-recomended-data?limit=5&page=1`,
+    `${process.env.HEROKU_BACKEND_URI}/api/users/artist-recomended-data?limit=5&page=1`,
     {
       method: 'GET',
     }
   );
   const artistsRecomended = await resCarousel.json();
   const resList = await fetch(
-    `${process.env.BACKEND_URI}/api/users/artist-initial-data?limit=10&page=1`,
+    `${process.env.HEROKU_BACKEND_URI}/api/users/artist-initial-data?limit=10&page=1`,
     {
       method: 'GET',
     }

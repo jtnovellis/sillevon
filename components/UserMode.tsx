@@ -9,7 +9,7 @@ interface UserModeProps {
 }
 
 export default function UserMode({ setIsCustomer }: UserModeProps) {
-  const [mode, setMode] = useState('custumer');
+  const [mode, setMode] = useState('customer');
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,10 +35,10 @@ export default function UserMode({ setIsCustomer }: UserModeProps) {
           label: (
             <Center>
               <IconEar size={16} />
-              <Box ml={10}>Custumer</Box>
+              <Box ml={10}>Customer</Box>
             </Center>
           ),
-          value: 'custumer',
+          value: 'customer',
         },
         {
           label: (

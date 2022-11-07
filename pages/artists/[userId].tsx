@@ -6,8 +6,9 @@ import styles from '../../styles/UserIdArtists.module.scss';
 import Posts from '../../components/Posts';
 import Map from '../../components/Map';
 import { Center, Text } from '@mantine/core';
+import { useState } from 'react';
 
-interface ArtistProfileClientProps {
+export interface ArtistProfileClientProps {
   user: {
     imagesDone: {
       avatar: string;
@@ -52,10 +53,14 @@ interface ArtistProfileClientProps {
     price: number;
     genre: string;
     instrument: string;
+    connections: any[];
+    contracts: [];
   };
 }
 
 const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
+  const [connections, setConnections] = useState(user.connections);
+  const [contracts, setContracts] = useState(user.contracts);
   const mockData = {
     image: user.imagesDone.background,
     avatar: user.imagesDone.avatar,
@@ -63,15 +68,15 @@ const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
     job: user.mode,
     stats: [
       {
-        value: 34,
+        value: contracts.length || 0,
         label: 'Contracts',
       },
       {
-        value: 187,
+        value: connections.length || 0,
         label: 'Connections',
       },
       {
-        value: user.posts.length,
+        value: user.posts.length || 0,
         label: 'Posts',
       },
     ],
@@ -111,6 +116,9 @@ const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
         <div className={styles.userCardInfo}>
           <div className={styles.cardInfo}>
             <UserCard
+              setConnections={setConnections}
+              instrument={user.instrument}
+              email={user.email}
               image={mockData.image}
               avatar={mockData.avatar}
               name={mockData.name}
@@ -160,7 +168,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let user;
   if (params) {
     const res = await fetch(
-      `${process.env.BACKEND_URI}/api/users/artist-email/${params.userId}`,
+      `${process.env.HEROKU_BACKEND_URI}/api/users/artist-email/${params.userId}`,
       {
         method: 'GET',
       }

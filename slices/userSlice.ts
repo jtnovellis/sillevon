@@ -78,6 +78,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.name = action.payload.name;
       state.imagesDone = action.payload.imagesDone;
+      state.mode = action.payload.mode;
     },
     setUserMode: (state, action: PayloadAction<UserState>) => {
       state.mode = action.payload.mode;

@@ -54,7 +54,7 @@ export default function ModalFilterGenre({
     try {
       const resRecomended = await axios.get(
         `${
-          process.env.NEXT_PUBLIC_BACKEND_URI
+          process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI
         }/api/users/filtered-artists?limit=5&page=1&city=${
           search.city
         }&genre=${genre}&price=${JSON.stringify(search.price)}&instrument=${
@@ -68,7 +68,7 @@ export default function ModalFilterGenre({
       }
       const resList = await axios.get(
         `${
-          process.env.NEXT_PUBLIC_BACKEND_URI
+          process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI
         }/api/users/filtered-artists?limit=10&page=1&city=${
           search.city
         }&genre=${genre}&price=${JSON.stringify(search.price)}&instrument=${

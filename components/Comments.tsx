@@ -70,7 +70,7 @@ export default function Comments({
     const token = Cookies.get('sillusr');
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/comments/new/${postId}`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/comments/new/${postId}`,
         {
           body: commentBody,
         },

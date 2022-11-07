@@ -61,7 +61,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
     if (type === 'register') {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signup`,
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/auth/local/signup`,
           values
         );
         dispatch(
@@ -69,11 +69,14 @@ const Login = ({ closeAllModals }: LoginProps) => {
             name: res.data.data.name,
             email: res.data.data.email,
             imagesDone: res.data.data.imagesDone,
+            mode: res.data.data.mode,
           })
         );
         dispatch(setLogged({ isLogged: true }));
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
+        Cookies.remove('mode');
+        Cookies.set('mode', res.data.data.mode, { expires: 1 });
         showNotification({
           id: 'load-data-user',
           color: 'teal',
@@ -98,16 +101,19 @@ const Login = ({ closeAllModals }: LoginProps) => {
     } else {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signin`,
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/auth/local/signin`,
           values
         );
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
+        Cookies.remove('mode');
+        Cookies.set('mode', res.data.data.mode, { expires: 1 });
         dispatch(
           addUserData({
             name: res.data.data.name,
             email: res.data.data.email,
             imagesDone: res.data.data.imagesDone,
+            mode: res.data.data.mode,
           })
         );
         showNotification({

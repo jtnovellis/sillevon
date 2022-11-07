@@ -51,7 +51,7 @@ export function ModalFilterPrice({
     try {
       const resRecomended = await axios.get(
         `${
-          process.env.NEXT_PUBLIC_BACKEND_URI
+          process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI
         }/api/users/filtered-artists?limit=5&page=1&city=${search.city}&genre=${
           search.genre
         }&price=${JSON.stringify(rangeValue)}&instrument=${search.instrument}`
@@ -63,7 +63,7 @@ export function ModalFilterPrice({
       }
       const resList = await axios.get(
         `${
-          process.env.NEXT_PUBLIC_BACKEND_URI
+          process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI
         }/api/users/filtered-artists?limit=10&page=1&city=${
           search.city
         }&genre=${search.genre}&price=${JSON.stringify(
