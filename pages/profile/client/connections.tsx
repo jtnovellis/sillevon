@@ -165,13 +165,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let userData;
   try {
     if (token) {
-      const res = await fetch(`${process.env.BACKEND_URI}/api/users/datauser`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        cache: 'no-store',
-      });
+      const res = await fetch(
+        `${process.env.HEROKU_BACKEND_URI}/api/users/datauser`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: 'no-store',
+        }
+      );
       userData = await res.json();
     } else {
       userData = { data: 'Token has expired' };

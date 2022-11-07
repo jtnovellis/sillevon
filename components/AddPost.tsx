@@ -40,7 +40,7 @@ export default function AddPost({ closeAllModals }: AddPostProps) {
     data.append('urlImage', image as string | Blob, image?.name);
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/posts/new`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/posts/new`,
         data,
         {
           headers: {

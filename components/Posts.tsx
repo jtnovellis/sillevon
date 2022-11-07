@@ -51,7 +51,7 @@ export default function Posts({
     setLikeloading(true);
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/posts/update/${postId}`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/posts/update/${postId}`,
         {
           likes: likesAmount + 1,
         },

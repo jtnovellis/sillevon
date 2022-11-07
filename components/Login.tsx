@@ -61,7 +61,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
     if (type === 'register') {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signup`,
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/auth/local/signup`,
           values
         );
         dispatch(
@@ -101,7 +101,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
     } else {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/local/signin`,
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/auth/local/signin`,
           values
         );
         Cookies.remove('sillusr');

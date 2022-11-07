@@ -32,7 +32,7 @@ export default function StepperDone() {
     data.append('background', background as string | Blob, background?.name);
     try {
       const resFormData = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/update/form-data`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/update/form-data`,
         data,
         {
           headers: {
@@ -44,7 +44,7 @@ export default function StepperDone() {
       const { email, imagesDone } = resFormData.data.data;
       dispatch(setImages({ email, imagesDone }));
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/users/update`,
+        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/update`,
         {
           mode,
           city,

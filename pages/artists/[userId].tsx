@@ -168,7 +168,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let user;
   if (params) {
     const res = await fetch(
-      `${process.env.BACKEND_URI}/api/users/artist-email/${params.userId}`,
+      `${process.env.HEROKU_BACKEND_URI}/api/users/artist-email/${params.userId}`,
       {
         method: 'GET',
       }

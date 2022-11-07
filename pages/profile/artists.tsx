@@ -90,12 +90,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['sillusr'];
   let userData;
   if (token) {
-    const res = await fetch(`${process.env.BACKEND_URI}/api/users/datauser`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.HEROKU_BACKEND_URI}/api/users/datauser`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     userData = await res.json();
   }
   return {
