@@ -1,15 +1,32 @@
 import { Card, Avatar, Text, Group, Button } from '@mantine/core';
 import { useUserCardStyles } from './ui/useUserCardStyles';
+import Cookies from 'js-cookie';
+import { makeConnections } from '../lib/connections';
+import { IconBug, IconCheck } from '@tabler/icons';
+import { showNotification } from '@mantine/notifications';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface UserCardProps {
   image: string;
   avatar: string;
   name: string;
+  email: string;
   job: string;
   stats: { label: string; value: number }[];
+  instrument: string;
+  setConnections: Dispatch<SetStateAction<any[]>>;
 }
 
-export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
+export function UserCard({
+  image,
+  avatar,
+  name,
+  job,
+  stats,
+  email,
+  instrument,
+  setConnections,
+}: UserCardProps) {
   const { classes, theme } = useUserCardStyles();
 
   const items = stats.map((stat) => (
@@ -22,6 +39,37 @@ export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
       </Text>
     </div>
   ));
+
+  async function handleClick() {
+    const token = Cookies.get('sillusr');
+    try {
+      const res = await makeConnections(email, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setConnections((prev) => [...prev, res.data]);
+      showNotification({
+        id: 'load-data-user',
+        color: 'teal',
+        title: 'Connection successfully',
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconCheck size={16} />,
+        autoClose: 4000,
+      });
+    } catch {
+      showNotification({
+        id: 'load-data-user',
+        color: 'red',
+        title: 'You could not connect',
+        message:
+          'Notification will close in 4 seconds, you can close this notification now',
+        icon: <IconBug size={16} />,
+        autoClose: 4000,
+      });
+    }
+  }
 
   return (
     <Card withBorder p='xl' radius='md' className={classes.card}>
@@ -38,7 +86,7 @@ export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
         {name}
       </Text>
       <Text align='center' size='sm' color='dimmed'>
-        {job}
+        {job} • {instrument}
       </Text>
       <Group mt='md' position='center' spacing={30}>
         {items}
@@ -49,6 +97,7 @@ export function UserCard({ image, avatar, name, job, stats }: UserCardProps) {
         mt='xl'
         size='md'
         color={theme.colorScheme === 'dark' ? undefined : 'dark'}
+        onClick={handleClick}
       >
         Connect
       </Button>

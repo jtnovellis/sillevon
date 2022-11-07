@@ -45,7 +45,7 @@ interface ClientNavBarProps {}
 export function ClientNavbar({}: ClientNavBarProps) {
   const { classes, cx } = useClientProfile();
   const router = useRouter();
-  const { name } = useAppSelector((state) => state.user);
+  const { name, imagesDone } = useAppSelector((state) => state.user);
 
   const links = data.map((item) => (
     <Button
@@ -71,7 +71,7 @@ export function ClientNavbar({}: ClientNavBarProps) {
     >
       <Navbar.Section grow>
         <Group className={classes.header} position='apart'>
-          <Avatar size={38} />
+          <Avatar src={imagesDone?.avatar} size={38} radius='xl' />
           <Text>{name}</Text>
         </Group>
         {links}
