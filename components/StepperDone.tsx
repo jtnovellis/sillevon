@@ -76,7 +76,7 @@ export default function StepperDone() {
         color: 'teal',
         title: res.data.message,
         message:
-          'Notification will close in 4 seconds, you can close this notification now',
+          'Notification will close in 4 seconds, you can close this notification now.',
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
