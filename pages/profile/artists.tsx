@@ -49,7 +49,11 @@ export default function ArtistsProfile({ user }: ArtistsProfileProps) {
       <div className={styles.artistsProfileContainer}>
         <div className={styles.userProfileCardInfo}>
           <div className={styles.cardProfileInfo}>
-            <UserCardProfile avatar={user.imagesDone.avatar} name={user.name} />
+            <UserCardProfile
+              user={user}
+              avatar={user.imagesDone.avatar}
+              name={user.name}
+            />
           </div>
         </div>
         <div className={styles.allProfilePosts}>

@@ -1,21 +1,21 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { Navbar, Group, Avatar, Button, Text } from '@mantine/core';
 import {
-  IconBellRinging,
   IconSettings,
   IconMessageCircle,
+  IconUsers,
   IconPhoto,
   IconChartBar,
   IconLogout,
 } from '@tabler/icons';
 import { useUserNavProfile } from './ui/useUserNavProfile';
 import Cookies from 'js-cookie';
-import { useAppSelector } from '../hooks/redux';
 import { openModal, closeAllModals } from '@mantine/modals';
 import AddPost from './AddPost';
+import ConnectionClient from './ConnectionClients';
 
 const data = [
-  { label: 'Notifications', icon: IconBellRinging },
+  { label: 'Connections', icon: IconUsers },
   { label: 'Stats', icon: IconChartBar },
   { label: 'Add a Post', icon: IconPhoto },
   { label: 'Chat', icon: IconMessageCircle },
@@ -25,9 +25,57 @@ const data = [
 interface UserCardProfileProps {
   avatar: string;
   name: string;
+  user: {
+    _id: string;
+    imagesDone: {
+      avatar: string;
+      background: string;
+    };
+    location: {
+      lat: number;
+      lng: number;
+    };
+    skills: {
+      improvisation: number;
+      show: number;
+      repertoire: number;
+      versatility: number;
+      instrumentation: number;
+    };
+    name: string;
+    email: string;
+    terms: boolean;
+    mode: string;
+    favoriteGenres: [];
+    posts: {
+      likes: number;
+      _id: string;
+      title: string;
+      urlImage: string;
+      comments: {
+        body: string;
+        _id: string;
+        author: {
+          imagesDone: {
+            avatar: string;
+          };
+          name: string;
+        };
+        post: object;
+        createdAt: string;
+        updatedAt: string;
+      }[];
+    }[];
+    city: string;
+    price: number;
+    genre: string;
+    instrument: string;
+    connections: any[];
+    contracts: [];
+  };
 }
 
-export function UserCardProfile({ avatar, name }: UserCardProfileProps) {
+export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const { classes, cx } = useUserNavProfile();
   const [active, setActive] = useState('');
 
@@ -44,6 +92,11 @@ export function UserCardProfile({ avatar, name }: UserCardProfileProps) {
           openModal({
             title: 'Add a post',
             children: <AddPost closeAllModals={closeAllModals} />,
+          });
+        } else if (item.label === 'Connections') {
+          openModal({
+            title: 'Connections',
+            children: <ConnectionClient user={user} />,
           });
         }
       }}
