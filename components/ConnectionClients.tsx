@@ -1,5 +1,3 @@
-import Layout from '../../../components/Layout';
-import ClientLayout from '../../../components/ClientLayout';
 import {
   Avatar,
   Badge,
@@ -12,10 +10,10 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { IconCheck, IconTrash, IconBug } from '@tabler/icons';
-import { GetServerSideProps } from 'next';
-import { updateConnections, deleteConnection } from '../../../lib/connections';
+import { updateConnections, deleteConnection } from '../lib/connections';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import styles from '../styles/ConnectionClients.module.scss';
 import { showNotification } from '@mantine/notifications';
 
 interface ConnectionsProps {
@@ -74,7 +72,7 @@ const jobColors: Record<string, string> = {
   pending: 'pink',
 };
 
-export default function Connections({ user }: ConnectionsProps) {
+export default function ConnectionClient({ user }: ConnectionsProps) {
   const theme = useMantineTheme();
   const [connections, setConnections] = useState(user.connections);
 
@@ -92,7 +90,7 @@ export default function Connections({ user }: ConnectionsProps) {
       showNotification({
         id: 'load-data-user',
         color: 'teal',
-        title: 'Connection accepted',
+        title: 'Connection deleted',
         message:
           'Notification will close in 4 seconds, you can close this notification now',
         icon: <IconCheck size={16} />,
@@ -102,7 +100,7 @@ export default function Connections({ user }: ConnectionsProps) {
       showNotification({
         id: 'load-data-user',
         color: 'red',
-        title: 'Connection not accepted',
+        title: 'Connection not deleted',
         message:
           'Notification will close in 4 seconds, you can close this notification now',
         icon: <IconBug size={16} />,
@@ -178,7 +176,7 @@ export default function Connections({ user }: ConnectionsProps) {
       </td>
       <td>
         <Group spacing={0} position='right'>
-          {!item.done && item.userA._id !== user._id ? (
+          {!item.done || item.userA._id === user._id ? (
             <ActionIcon onClick={() => handleCheckClick(item._id)}>
               <IconCheck size={16} stroke={1.5} />
             </ActionIcon>
@@ -191,55 +189,21 @@ export default function Connections({ user }: ConnectionsProps) {
     </tr>
   ));
   return (
-    <Layout title={`Sillevon | Connections`}>
-      <ClientLayout>
-        <div>
-          <Text>Connections</Text>
-          <div>
-            <ScrollArea>
-              <Table sx={{ minWidth: 800 }} verticalSpacing='sm'>
-                <thead>
-                  <tr>
-                    <th>Artist/Band</th>
-                    <th>Instrument</th>
-                    <th>Genre</th>
-                    <th>Price</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-              </Table>
-            </ScrollArea>
-          </div>
-        </div>
-      </ClientLayout>
-    </Layout>
+    <div className={styles.connectionClientsContainer}>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing='sm'>
+          <thead>
+            <tr>
+              <th>Artist/Band</th>
+              <th>Instrument</th>
+              <th>Genre</th>
+              <th>Price</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
+    </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const token = context.req.cookies['sillusr'];
-  let userData;
-  try {
-    if (token) {
-      const res = await fetch(
-        `${process.env.HEROKU_BACKEND_URI}/api/users/datauser`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          cache: 'no-store',
-        }
-      );
-      userData = await res.json();
-    } else {
-      userData = { data: 'Token has expired' };
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  return {
-    props: { user: userData.data },
-  };
-};
