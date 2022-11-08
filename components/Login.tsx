@@ -82,7 +82,7 @@ const Login = ({ closeAllModals }: LoginProps) => {
           color: 'teal',
           title: 'User was registered successfully',
           message:
-            'Notification will close in 4 seconds, you can close this notification now',
+            'Notification will close in 4 seconds, you can close this notification now.',
           icon: <IconCheck size={16} />,
           autoClose: 4000,
         });
