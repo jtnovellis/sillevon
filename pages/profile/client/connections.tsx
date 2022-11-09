@@ -65,7 +65,17 @@ export interface ConnectionsProps {
     genre: string;
     instrument: string;
     connections: any[];
-    contracts: [];
+    contracts: {
+      contractName: string;
+      isAccepted: boolean;
+      isPaid: boolean;
+      price: number;
+      _id: string;
+      artist: {
+        name: string;
+        instrument: string;
+      };
+    }[];
   };
 }
 
