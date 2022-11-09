@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 
-interface ConnectionsProps {
+export interface ConnectionsProps {
   user: {
     _id: string;
     imagesDone: {
