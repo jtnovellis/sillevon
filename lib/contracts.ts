@@ -49,3 +49,12 @@ export async function lastUpdateContract(
   const res = await api.put('/api/contracts/last-update', data, options);
   return res.data;
 }
+
+export async function acceptContract(id: string, options = {}) {
+  const res = await api.put(
+    `/api/contracts/accept/${id}`,
+    { isAccepted: true },
+    options
+  );
+  return res.data;
+}

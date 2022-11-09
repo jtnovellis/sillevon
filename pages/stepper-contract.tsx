@@ -50,7 +50,7 @@ export type RehearsalDate = { schedule: Date; time: Date }[];
 export default function StepperContract({ user }: StepperContractProps) {
   const dispatch = useAppDispatch();
   const totalPrice = useAppSelector((state) => state.contract.price);
-  const [active, setActive] = useState(3);
+  const [active, setActive] = useState(0);
   const [loadingStepper, setLoadingStepper] = useState({
     stepOne: false,
     stepTwo: false,
@@ -109,7 +109,8 @@ export default function StepperContract({ user }: StepperContractProps) {
       const newArray = arrayGenerator(numOfRehearsal);
       setRehearsalInputsToRender(newArray);
     }
-  }, [numOfRehearsal, dispatch, contracts.length, totalPrice]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numOfRehearsal, dispatch, contracts.length]);
 
   const token = Cookies.get('sillusr');
 
@@ -153,7 +154,7 @@ export default function StepperContract({ user }: StepperContractProps) {
           stepOne: false,
         }));
       }
-    } else if (active === 1 && !schedule) {
+    } else if (active === 1 && schedule) {
       try {
         setLoadingStepper((prev) => ({
           ...prev,
@@ -198,7 +199,7 @@ export default function StepperContract({ user }: StepperContractProps) {
           stepTwo: false,
         }));
       }
-    } else if (active === 3 && address !== '') {
+    } else if (active === 2 && address !== '') {
       try {
         setLoadingStepper((prev) => ({
           ...prev,
@@ -515,11 +516,11 @@ export default function StepperContract({ user }: StepperContractProps) {
                           </Accordion.Control>
                           <Accordion.Panel>
                             <Text>
-                              Instrument: ${contract.artist.instrument}
+                              Instrument: {contract.artist.instrument}
                             </Text>
                             <Text>Style: {contract.artist.genre}</Text>
                             <Text>City: {contract.artist.city}</Text>
-                            <Text>Price: ${contract.artist.price}/hr</Text>
+                            <Text>Price: ${contract.artist.price} /hr</Text>
                           </Accordion.Panel>
                         </Accordion.Item>
                       );

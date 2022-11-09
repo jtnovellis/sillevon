@@ -68,7 +68,9 @@ export interface ConnectionsProps {
     contracts: {
       contractName: string;
       isAccepted: boolean;
+      schedule: Date;
       isPaid: boolean;
+      rehearsalSchedule: [];
       price: number;
       _id: string;
       artist: {
