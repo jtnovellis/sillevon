@@ -1,13 +1,13 @@
-import Layout from '../../components/Layout';
-import styles from '../../styles/ArtistsProfile.module.scss';
-import Posts from '../../components/Posts';
-import UserStats from '../../components/UserStats';
-import Map from '../../components/Map';
-import { UserCardProfile } from '../../components/UserCardProfile';
+import Layout from '../../../components/Layout';
+import styles from '../../../styles/ArtistsProfile.module.scss';
+import Posts from '../../../components/Posts';
+import UserStats from '../../../components/UserStats';
+import Map from '../../../components/Map';
+import { UserCardProfile } from '../../../components/UserCardProfile';
 import { GetServerSideProps } from 'next';
 import { Center, Text } from '@mantine/core';
-import { useAppDispatch } from '../../hooks/redux';
-import { setAvatar } from '../../slices/userSlice';
+import { useAppDispatch } from '../../../hooks/redux';
+import { setAvatar } from '../../../slices/userSlice';
 
 interface ArtistsProfileProps {
   user: any;

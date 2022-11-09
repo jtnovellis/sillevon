@@ -7,16 +7,19 @@ import {
   IconPhoto,
   IconChartBar,
   IconLogout,
+  IconTable,
 } from '@tabler/icons';
 import { useUserNavProfile } from './ui/useUserNavProfile';
 import Cookies from 'js-cookie';
 import { openModal, closeAllModals } from '@mantine/modals';
 import AddPost from './AddPost';
 import ConnectionClient from './ConnectionClients';
+import { useRouter } from 'next/router';
 
 const data = [
   { label: 'Connections', icon: IconUsers },
   { label: 'Stats', icon: IconChartBar },
+  { label: 'Contracts', icon: IconTable },
   { label: 'Add a Post', icon: IconPhoto },
   { label: 'Chat', icon: IconMessageCircle },
   { label: 'Settings', icon: IconSettings },
@@ -78,6 +81,7 @@ interface UserCardProfileProps {
 export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const { classes, cx } = useUserNavProfile();
   const [active, setActive] = useState('');
+  const router = useRouter();
 
   const links = data.map((item) => (
     <Button
@@ -97,6 +101,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
           openModal({
             title: 'Connections',
             children: <ConnectionClient user={user} />,
+          });
+        } else if (item.label === 'Contracts') {
+          router.push({
+            pathname: '/profile/artists/contracts',
           });
         }
       }}

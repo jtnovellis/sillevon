@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 
-interface ConnectionsProps {
+export interface ConnectionsProps {
   user: {
     _id: string;
     imagesDone: {
@@ -65,7 +65,19 @@ interface ConnectionsProps {
     genre: string;
     instrument: string;
     connections: any[];
-    contracts: [];
+    contracts: {
+      contractName: string;
+      isAccepted: boolean;
+      schedule: Date;
+      isPaid: boolean;
+      rehearsalSchedule: [];
+      price: number;
+      _id: string;
+      artist: {
+        name: string;
+        instrument: string;
+      };
+    }[];
   };
 }
 
