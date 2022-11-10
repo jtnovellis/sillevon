@@ -76,7 +76,15 @@ const Login = ({ closeAllModals }: LoginProps) => {
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         Cookies.remove('mode');
+        Cookies.remove('name');
+        Cookies.remove('avatar');
+        Cookies.remove('background');
         Cookies.set('mode', res.data.data.mode, { expires: 1 });
+        Cookies.set('name', res.data.data.name, { expires: 1 });
+        Cookies.set('avatar', res.data.data.imagesDone.avatar, { expires: 1 });
+        Cookies.set('background', res.data.data.imagesDone.background, {
+          expires: 1,
+        });
         showNotification({
           id: 'load-data-user',
           color: 'teal',
@@ -107,7 +115,15 @@ const Login = ({ closeAllModals }: LoginProps) => {
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         Cookies.remove('mode');
+        Cookies.remove('name');
+        Cookies.remove('avatar');
+        Cookies.remove('background');
         Cookies.set('mode', res.data.data.mode, { expires: 1 });
+        Cookies.set('name', res.data.data.name, { expires: 1 });
+        Cookies.set('avatar', res.data.data.imagesDone.avatar, { expires: 1 });
+        Cookies.set('background', res.data.data.imagesDone.background, {
+          expires: 1,
+        });
         dispatch(
           addUserData({
             name: res.data.data.name,
