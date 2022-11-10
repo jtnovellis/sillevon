@@ -14,26 +14,95 @@ import {
 } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { useDisclosure } from '@mantine/hooks';
-import { IconSun, IconMoonStars, IconPlayerPlay } from '@tabler/icons';
+import {
+  IconSun,
+  IconMoonStars,
+  IconPlayerPlay,
+  IconCheck,
+  IconBug,
+} from '@tabler/icons';
 import Link from 'next/link';
 import { useHeaderStyles } from './ui/useHeaderStyles';
 import { NextPage } from 'next';
 import Login from './Login';
-import { useAppSelector } from '../hooks/redux';
 import Cookies from 'js-cookie';
 import { useJwt } from 'react-jwt';
 import { useRouter } from 'next/router';
+import { thirdPartAuth } from '../lib/userdata';
+import { useAppDispatch } from '../hooks/redux';
+import { addUserData, setLogged } from '../slices/userSlice';
+import { useAuth0 } from '@auth0/auth0-react';
+import { showNotification } from '@mantine/notifications';
 
 const HeaderNav: NextPage = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useHeaderStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { imagesDone } = useAppSelector((state) => state.user);
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { user, isAuthenticated } = useAuth0();
 
-  const user = Cookies.get('sillusr');
-  const { isExpired } = useJwt(user as string);
+  const trigger = Cookies.get('trigger');
+
+  if (trigger && isAuthenticated) {
+    (async () => {
+      try {
+        const res = await thirdPartAuth(user?.email, user?.name);
+        dispatch(
+          addUserData({
+            name: res.data.name,
+            email: res.data.email,
+            imagesDone: res.data.imagesDone,
+            mode: res.data.mode,
+          })
+        );
+        dispatch(setLogged({ isLogged: true }));
+        Cookies.remove('auth0');
+        Cookies.set('auth0', 'true');
+        Cookies.remove('sillusr');
+        Cookies.set('sillusr', res.data.token, { expires: 1 });
+        Cookies.remove('mode');
+        Cookies.remove('name');
+        Cookies.remove('avatar');
+        Cookies.remove('background');
+        Cookies.set('mode', res.data.mode, { expires: 1 });
+        Cookies.set('name', res.data.name, { expires: 1 });
+        Cookies.set('avatar', res.data.imagesDone.avatar, { expires: 1 });
+        Cookies.set('background', res.data.imagesDone.background, {
+          expires: 1,
+        });
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'User was registered successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now.',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
+        if (res.data.new) {
+          router.push('/register-stepper');
+        } else {
+          router.push('/');
+        }
+        Cookies.remove('trigger');
+      } catch (e) {
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'User could not been registered',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
+      }
+    })();
+  }
+
+  const token = Cookies.get('sillusr');
+  const { isExpired } = useJwt(token as string);
   const auth = isExpired;
 
   const mode = Cookies.get('mode');

@@ -15,6 +15,7 @@ import { openModal, closeAllModals } from '@mantine/modals';
 import AddPost from './AddPost';
 import ConnectionClient from './ConnectionClients';
 import { useRouter } from 'next/router';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const data = [
   { label: 'Connections', icon: IconUsers },
@@ -82,9 +83,13 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const { classes, cx } = useUserNavProfile();
   const [active, setActive] = useState('');
   const router = useRouter();
+  const { logout } = useAuth0();
 
   const storedavatar = Cookies.get('avatar');
   const storedName = Cookies.get('name');
+  const auth0 = Cookies.get('auth0');
+
+  console.log(auth0);
 
   const links = data.map((item) => (
     <Button
@@ -135,6 +140,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
           variant='outline'
           className={classes.link}
           onClick={() => {
+            if (auth0) {
+              logout();
+            }
+            Cookies.remove('auth0');
             Cookies.remove('sillusr');
             Cookies.remove('mode');
             Cookies.remove('name');

@@ -12,7 +12,7 @@ import {
   IconUsers,
 } from '@tabler/icons';
 import { useRouter } from 'next/router';
-import { useAppSelector } from '../hooks/redux';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const data = [
   {
@@ -45,9 +45,11 @@ interface ClientNavBarProps {}
 export function ClientNavbar({}: ClientNavBarProps) {
   const { classes, cx } = useClientProfile();
   const router = useRouter();
+  const { logout } = useAuth0();
 
   const username = Cookies.get('name');
   const avatar = Cookies.get('avatar');
+  const auth0 = Cookies.get('auth0');
 
   const links = data.map((item) => (
     <Button
@@ -84,6 +86,10 @@ export function ClientNavbar({}: ClientNavBarProps) {
           variant='outline'
           className={classes.link}
           onClick={() => {
+            if (auth0) {
+              logout();
+            }
+            Cookies.remove('auth0');
             Cookies.remove('sillusr');
             Cookies.remove('mode');
             Cookies.remove('name');
