@@ -28,7 +28,6 @@ import Login from './Login';
 import Cookies from 'js-cookie';
 import { useJwt } from 'react-jwt';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { thirdPartAuth } from '../lib/userdata';
 import { useAppDispatch } from '../hooks/redux';
 import { addUserData, setLogged } from '../slices/userSlice';
@@ -58,7 +57,6 @@ const HeaderNav: NextPage = () => {
             mode: res.data.mode,
           })
         );
-        console.log(res);
         dispatch(setLogged({ isLogged: true }));
         Cookies.remove('auth0');
         Cookies.set('auth0', 'true');
