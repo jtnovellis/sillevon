@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from '../components/CheckoutForm';
-import styles from '../styles/Payment.module.scss';
+import CheckoutForm from '../../components/CheckoutForm';
+import styles from '../../styles/Payment.module.scss';
 import { GetServerSideProps } from 'next';
 import Cookies from 'js-cookie';
 
