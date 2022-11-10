@@ -106,6 +106,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
           router.push({
             pathname: '/profile/artists/contracts',
           });
+        } else if (item.label === 'Chat') {
+          router.push({
+            pathname: '/profile/artists/chat',
+          });
         }
       }}
     >

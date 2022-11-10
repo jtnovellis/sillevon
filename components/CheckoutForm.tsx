@@ -46,6 +46,8 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
+  const RETURN_URL = `${process.env.NEXT_PUBLIC_VERCEL_FRONTEND_URI}`;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) {
@@ -55,7 +57,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000',
+        return_url: RETURN_URL,
       },
     });
 
