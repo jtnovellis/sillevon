@@ -37,6 +37,7 @@ const HeaderNav: NextPage = () => {
   const auth = isExpired;
 
   const mode = Cookies.get('mode');
+  const avatar = Cookies.get('avatar');
 
   return (
     <Box className={classes.container}>
@@ -100,7 +101,7 @@ const HeaderNav: NextPage = () => {
                   }
                 }}
               >
-                <Avatar src={imagesDone?.avatar} radius='xl' />
+                <Avatar src={avatar} radius='xl' />
               </ActionIcon>
             )}
           </Group>
@@ -175,7 +176,7 @@ const HeaderNav: NextPage = () => {
                   }
                 }}
               >
-                <Avatar src={imagesDone?.avatar} radius='xl' />
+                <Avatar src={avatar} radius='xl' />
               </ActionIcon>
             )}
           </Group>

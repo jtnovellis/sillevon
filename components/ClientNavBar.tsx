@@ -45,7 +45,9 @@ interface ClientNavBarProps {}
 export function ClientNavbar({}: ClientNavBarProps) {
   const { classes, cx } = useClientProfile();
   const router = useRouter();
-  const { name, imagesDone } = useAppSelector((state) => state.user);
+
+  const username = Cookies.get('name');
+  const avatar = Cookies.get('avatar');
 
   const links = data.map((item) => (
     <Button
@@ -71,8 +73,8 @@ export function ClientNavbar({}: ClientNavBarProps) {
     >
       <Navbar.Section grow>
         <Group className={classes.header} position='apart'>
-          <Avatar src={imagesDone?.avatar} size={38} radius='xl' />
-          <Text>{name}</Text>
+          <Avatar src={avatar} size={38} radius='xl' />
+          <Text>{username}</Text>
         </Group>
         {links}
       </Navbar.Section>
@@ -83,6 +85,10 @@ export function ClientNavbar({}: ClientNavBarProps) {
           className={classes.link}
           onClick={() => {
             Cookies.remove('sillusr');
+            Cookies.remove('mode');
+            Cookies.remove('name');
+            Cookies.remove('avatar');
+            Cookies.remove('background');
             window.location.assign('/');
           }}
         >

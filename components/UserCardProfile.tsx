@@ -83,6 +83,9 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const [active, setActive] = useState('');
   const router = useRouter();
 
+  const storedavatar = Cookies.get('avatar');
+  const storedName = Cookies.get('name');
+
   const links = data.map((item) => (
     <Button
       variant='outline'
@@ -122,8 +125,8 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
     <Navbar height={700} width={{ sm: 300 }} p='md'>
       <Navbar.Section grow>
         <Group className={classes.header} position='apart'>
-          <Avatar src={avatar} size={37} />
-          <Text>{name}</Text>
+          <Avatar src={storedavatar} size={37} />
+          <Text>{storedName}</Text>
         </Group>
         {links}
       </Navbar.Section>
@@ -133,6 +136,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
           className={classes.link}
           onClick={() => {
             Cookies.remove('sillusr');
+            Cookies.remove('mode');
+            Cookies.remove('name');
+            Cookies.remove('avatar');
+            Cookies.remove('background');
             window.location.assign('/');
           }}
         >
