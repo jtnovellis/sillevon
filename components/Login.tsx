@@ -24,6 +24,8 @@ import axios from 'axios';
 import { useAppDispatch } from '../hooks/redux';
 import { addUserData, setLogged } from '../slices/userSlice';
 import Cookies from 'js-cookie';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface LoginProps {
   closeAllModals: (payload_0?: undefined) => void;
@@ -37,9 +39,11 @@ interface UserValues {
 }
 
 const Login = ({ closeAllModals }: LoginProps) => {
+  const { loginWithRedirect } = useAuth0();
   const dispatch = useAppDispatch();
   const [type, toggle] = useToggle(['login', 'register']);
   const router = useRouter();
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -73,6 +77,8 @@ const Login = ({ closeAllModals }: LoginProps) => {
           })
         );
         dispatch(setLogged({ isLogged: true }));
+        Cookies.remove('auth0');
+        Cookies.set('auth0', 'false');
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         Cookies.remove('mode');
@@ -112,6 +118,8 @@ const Login = ({ closeAllModals }: LoginProps) => {
           `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/auth/local/signin`,
           values
         );
+        Cookies.remove('auth0');
+        Cookies.set('auth0', 'false');
         Cookies.remove('sillusr');
         Cookies.set('sillusr', res.data.data.token, { expires: 1 });
         Cookies.remove('mode');
@@ -164,11 +172,21 @@ const Login = ({ closeAllModals }: LoginProps) => {
       </Text>
 
       <Group grow mb='md' mt='md'>
-        <Button>
+        <Button
+          onClick={() => {
+            loginWithRedirect({ connection: 'google-oauth2' });
+            Cookies.set('trigger', 'ok');
+          }}
+        >
           <IconBrandGoogle size={30} />
           <span>Goolge</span>
         </Button>
-        <Button>
+        <Button
+          onClick={() => {
+            loginWithRedirect({ connection: 'twitter' });
+            Cookies.set('trigger', 'ok');
+          }}
+        >
           <IconBrandTwitter size={30} />
           <span>Twitter</span>
         </Button>

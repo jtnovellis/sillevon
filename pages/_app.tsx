@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import { ModalsProvider } from '@mantine/modals';
 import { NotificationsProvider } from '@mantine/notifications';
-import { useJwt } from 'react-jwt';
+import { Auth0Provider } from '@auth0/auth0-react';
 import { fetchUserData } from '../lib/userdata';
 import Cookies from 'js-cookie';
 
@@ -46,6 +46,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     userdata();
   }, []);
 
+  const [showChild, setShowChild] = useState(false);
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
+  const domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string;
+  const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENDID as string;
+
   return (
     <Provider store={store}>
       <ColorSchemeProvider
@@ -57,11 +69,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           withNormalizeCSS
           theme={{ colorScheme }}
         >
-          <NotificationsProvider>
-            <ModalsProvider>
-              <Component {...pageProps} />
-            </ModalsProvider>
-          </NotificationsProvider>
+          <Auth0Provider
+            domain={domain}
+            clientId={clientId}
+            redirectUri={window.location.origin}
+          >
+            <NotificationsProvider>
+              <ModalsProvider>
+                <Component {...pageProps} />
+              </ModalsProvider>
+            </NotificationsProvider>
+          </Auth0Provider>
         </MantineProvider>
       </ColorSchemeProvider>
     </Provider>

@@ -11,6 +11,7 @@ import { showNotification } from '@mantine/notifications';
 const Home: NextPage = () => {
   const router = useRouter();
   const { redirect_status } = router.query;
+
   useEffect(() => {
     if (redirect_status) {
       if (redirect_status === 'succeeded') {
