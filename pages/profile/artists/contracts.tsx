@@ -21,6 +21,17 @@ export default function ContractsArtists({ user }: ContractsArtistsProps) {
         <UnstyledButton mb={20} onClick={() => router.push('/profile/artists')}>
           <IconChevronLeft size={40} />
         </UnstyledButton>
+        <Text
+          component='span'
+          align='center'
+          variant='gradient'
+          gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+          size={50}
+          weight={700}
+          style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+        >
+          Contracts
+        </Text>
         <Accordion variant='contained' radius='md'>
           {user.contracts.length > 0 ? (
             user.contracts.map((contract) => {

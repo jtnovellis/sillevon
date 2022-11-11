@@ -4,19 +4,22 @@ import MusicianCarousel from '../../components/MusicianCarousel';
 import styles from '../../styles/Artists.module.scss';
 import { SearcherBar } from '../../components/SearcherBar';
 import { ArtistsTable } from '../../components/ArtistsTable';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
 import { IconBug, IconDisc, IconEar, IconTag } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
-import { ActionIcon, Tooltip } from '@mantine/core';
+import { ActionIcon, Button, Tooltip } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import ModalFilterGenre from '../../components/ModalFilterGenre';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setSliceCity } from '../../slices/searchSlice';
 import { ModalFilterPrice } from '../../components/ModalFilterPrice';
 import ModalFilterInstrument from '../../components/ModalFilterInstrument';
+import { Pagination } from '../../components/Pagination';
 
 interface ArtistsProps {
+  nextPage: boolean;
+  prevPage: boolean;
   artistsList: {
     imagesDone: {
       avatar: string;
@@ -37,7 +40,12 @@ interface ArtistsProps {
   }[];
 }
 
-const Artists = ({ artistsList, artistsRecomended }: ArtistsProps) => {
+const Artists = ({
+  artistsList,
+  artistsRecomended,
+  nextPage,
+  prevPage,
+}: ArtistsProps) => {
   const [iconLoading, setIconLoading] = useState<boolean>(false);
   const [artistListFiltered, setArtistListFiltered] = useState(artistsList);
   const [artistsRecomendedFiltered, setArtistsRecomendedFiltered] =
@@ -45,10 +53,45 @@ const Artists = ({ artistsList, artistsRecomended }: ArtistsProps) => {
   const [city, setCity] = useState<string>('');
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search);
+  const [pagination, setPagination] = useState<number | undefined>(1);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(nextPage);
+  const [hasPrevPage, setHasPrevPage] = useState<boolean>(prevPage);
+  const [isHidde, setIsHidde] = useState<boolean>(false);
 
   useLayoutEffect(() => {
     dispatch(setSliceCity({ city }));
   }, [city, dispatch]);
+
+  useEffect(() => {
+    if (hasNextPage) {
+      (async () => {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/artist-initial-data?limit=10&page=${pagination}`,
+          {
+            method: 'GET',
+          }
+        );
+        const artists = await res.json();
+        setHasNextPage(artists.data.hasNextPage);
+        setHasPrevPage(artists.data.hasPrevPage);
+        setArtistListFiltered(artists.data.docs);
+      })();
+    } else if (hasPrevPage) {
+      (async () => {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/users/artist-initial-data?limit=10&page=${pagination}`,
+          {
+            method: 'GET',
+          }
+        );
+        const artists = await res.json();
+        setHasNextPage(artists.data.hasNextPage);
+        setHasPrevPage(artists.data.hasPrevPage);
+        setArtistListFiltered(artists.data.docs);
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination]);
 
   async function filteredArtist() {
     try {
@@ -164,12 +207,21 @@ const Artists = ({ artistsList, artistsRecomended }: ArtistsProps) => {
         </div>
         <div className={styles.carousel}>
           <div className={styles.carouselNav}>
-            <p>Artists recomended</p>
+            {!isHidde ? <p>Artists recomended</p> : <p>List of artists</p>}
+            <Button
+              variant='subtle'
+              onClick={() => setIsHidde((prev) => !prev)}
+            >
+              {isHidde ? 'Show' : 'Hide'}
+            </Button>
           </div>
-          <MusicianCarousel data={artistsRecomendedFiltered} />
+          {!isHidde && <MusicianCarousel data={artistsRecomendedFiltered} />}
         </div>
         <div className={styles.bundleArtists}>
           <ArtistsTable data={artistListFiltered} />
+        </div>
+        <div className={styles.pagination}>
+          <Pagination pagination={pagination} setPagination={setPagination} />
         </div>
       </section>
     </Layout>
@@ -195,6 +247,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const artistsList = await resList.json();
   return {
     props: {
+      prevPage: artistsRecomended.data.hasPrevPage,
+      nextPage: artistsRecomended.data.hasNextPage,
       artistsList: artistsList.data.docs,
       artistsRecomended: artistsRecomended.data.docs,
     },

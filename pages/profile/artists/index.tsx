@@ -56,23 +56,36 @@ export default function ArtistsProfile({ user }: ArtistsProfileProps) {
             />
           </div>
         </div>
-        <div className={styles.allProfilePosts}>
-          {user.posts.length > 0 ? (
-            user.posts.map((post: any) => (
-              <Posts
-                key={post._id}
-                postId={post._id}
-                urlImage={post.urlImage}
-                title={post.title}
-                likesAmount={post.likes}
-                comments={post.comments}
-              />
-            ))
-          ) : (
-            <Center>
-              <Text>There is not posts</Text>
-            </Center>
-          )}
+        <div>
+          <Text
+            component='span'
+            align='center'
+            variant='gradient'
+            gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+            size={50}
+            weight={700}
+            style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+          >
+            Dashboard
+          </Text>
+          <div className={styles.allProfilePosts}>
+            {user.posts.length > 0 ? (
+              user.posts.map((post: any) => (
+                <Posts
+                  key={post._id}
+                  postId={post._id}
+                  urlImage={post.urlImage}
+                  title={post.title}
+                  likesAmount={post.likes}
+                  comments={post.comments}
+                />
+              ))
+            ) : (
+              <Center>
+                <Text>There is not posts</Text>
+              </Center>
+            )}
+          </div>
         </div>
         <div>
           <div className={styles.userProfileStats}>

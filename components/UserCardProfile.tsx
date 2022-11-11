@@ -13,9 +13,9 @@ import { useUserNavProfile } from './ui/useUserNavProfile';
 import Cookies from 'js-cookie';
 import { openModal, closeAllModals } from '@mantine/modals';
 import AddPost from './AddPost';
-import ConnectionClient from './ConnectionClients';
 import { useRouter } from 'next/router';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useAppSelector } from '../hooks/redux';
 
 const data = [
   { label: 'Connections', icon: IconUsers },
@@ -84,9 +84,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const [active, setActive] = useState('');
   const router = useRouter();
   const { logout } = useAuth0();
+  const { imagesDone, name: username } = useAppSelector((state) => state.user);
 
-  const storedavatar = Cookies.get('avatar');
-  const storedName = Cookies.get('name');
+  const storedavatar = imagesDone?.avatar || Cookies.get('avatar');
+  const storedName = username || Cookies.get('name');
   const auth0 = Cookies.get('auth0');
 
   const links = data.map((item) => (
@@ -118,6 +119,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
         } else if (item.label === 'Stats') {
           router.push({
             pathname: '/profile/artists/stats',
+          });
+        } else if (item.label === 'Settings') {
+          router.push({
+            pathname: '/profile/artists/settings',
           });
         }
       }}

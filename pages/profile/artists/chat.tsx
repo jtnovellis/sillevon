@@ -121,6 +121,17 @@ export default function Chat({ user }: ChatProps) {
           >
             <IconChevronLeft size={40} />
           </UnstyledButton>
+          <Text
+            component='span'
+            align='center'
+            variant='gradient'
+            gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+            size={50}
+            weight={700}
+            style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+          >
+            Chats
+          </Text>
         </div>
         <div className={styles.chatContainer}>
           <div>

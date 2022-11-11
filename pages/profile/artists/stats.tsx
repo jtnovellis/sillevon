@@ -5,7 +5,7 @@ import styles from '../../../styles/ArtistStats.module.scss';
 import { ConnectionsProps } from '../client/connections';
 import { StatsRing } from '../../../components/StatsRing';
 import { IconChevronLeft } from '@tabler/icons';
-import { Divider, UnstyledButton } from '@mantine/core';
+import { Divider, UnstyledButton, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 interface StatsProps extends ConnectionsProps {}
@@ -55,6 +55,17 @@ export default function Stats({ user }: StatsProps) {
         <UnstyledButton mb={20} onClick={() => router.push('/profile/artists')}>
           <IconChevronLeft size={40} />
         </UnstyledButton>
+        <Text
+          component='span'
+          align='center'
+          variant='gradient'
+          gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+          size={50}
+          weight={700}
+          style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+        >
+          Stats
+        </Text>
         <ContractStats contracts={user.contracts} />
         <Divider mt={20} mb={20} />
         <StatsRing data={dataForRings} />
