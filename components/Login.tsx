@@ -25,7 +25,6 @@ import { useAppDispatch } from '../hooks/redux';
 import { addUserData, setLogged } from '../slices/userSlice';
 import Cookies from 'js-cookie';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Dispatch, SetStateAction } from 'react';
 
 interface LoginProps {
   closeAllModals: (payload_0?: undefined) => void;
