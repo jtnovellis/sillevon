@@ -1,5 +1,3 @@
-import Layout from '../../../components/Layout';
-import ClientLayout from '../../../components/ClientLayout';
 import {
   Avatar,
   Badge,
@@ -10,15 +8,19 @@ import {
   Anchor,
   ScrollArea,
   useMantineTheme,
+  UnstyledButton,
 } from '@mantine/core';
-import { IconCheck, IconTrash, IconBug } from '@tabler/icons';
-import { GetServerSideProps } from 'next';
+import { IconCheck, IconTrash, IconBug, IconChevronLeft } from '@tabler/icons';
 import { updateConnections, deleteConnection } from '../../../lib/connections';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import styles from '../../../styles/ConnectionsArtists.module.scss';
 import { showNotification } from '@mantine/notifications';
+import { GetServerSideProps } from 'next';
+import Layout from '../../../components/Layout';
+import { useRouter } from 'next/router';
 
-export interface ConnectionsProps {
+interface ConnectionsProps {
   user: {
     _id: string;
     imagesDone: {
@@ -65,20 +67,7 @@ export interface ConnectionsProps {
     genre: string;
     instrument: string;
     connections: any[];
-    contracts: {
-      contractName: string;
-      isAccepted: boolean;
-      createdAt: string;
-      schedule: Date;
-      isPaid: boolean;
-      rehearsalSchedule: [];
-      price: number;
-      _id: string;
-      artist: {
-        name: string;
-        instrument: string;
-      };
-    }[];
+    contracts: [];
   };
 }
 
@@ -87,7 +76,8 @@ const jobColors: Record<string, string> = {
   pending: 'pink',
 };
 
-export default function Connections({ user }: ConnectionsProps) {
+export default function ConnectionClient({ user }: ConnectionsProps) {
+  const router = useRouter();
   const theme = useMantineTheme();
   const [connections, setConnections] = useState(user.connections);
 
@@ -105,7 +95,7 @@ export default function Connections({ user }: ConnectionsProps) {
       showNotification({
         id: 'load-data-user',
         color: 'teal',
-        title: 'Connection accepted',
+        title: 'Connection deleted',
         message:
           'Notification will close in 4 seconds, you can close this notification now',
         icon: <IconCheck size={16} />,
@@ -115,7 +105,7 @@ export default function Connections({ user }: ConnectionsProps) {
       showNotification({
         id: 'load-data-user',
         color: 'red',
-        title: 'Connection not accepted',
+        title: 'Connection not deleted',
         message:
           'Notification will close in 4 seconds, you can close this notification now',
         icon: <IconBug size={16} />,
@@ -160,9 +150,9 @@ export default function Connections({ user }: ConnectionsProps) {
     <tr key={item._id}>
       <td>
         <Group spacing='sm'>
-          <Avatar size={30} src={item.userB.imagesDone.avatar} radius={30} />
+          <Avatar size={30} src={item.userA.imagesDone.avatar} radius={30} />
           <Text size='sm' weight={500}>
-            {item.userB.name}
+            {item.userA.name}
           </Text>
         </Group>
       </td>
@@ -186,12 +176,12 @@ export default function Connections({ user }: ConnectionsProps) {
       </td>
       <td>
         <Text size='sm' color='dimmed'>
-          {item.userB.price} /hr
+          {item.userA.price} /hr
         </Text>
       </td>
       <td>
         <Group spacing={0} position='right'>
-          {!item.done && item.userA._id !== user._id ? (
+          {!item.done || item.userA._id === user._id ? (
             <ActionIcon onClick={() => handleCheckClick(item._id)}>
               <IconCheck size={16} stroke={1.5} />
             </ActionIcon>
@@ -204,28 +194,26 @@ export default function Connections({ user }: ConnectionsProps) {
     </tr>
   ));
   return (
-    <Layout title={`Sillevon | Connections`}>
-      <ClientLayout>
-        <div>
-          <Text>Connections</Text>
-          <div>
-            <ScrollArea>
-              <Table sx={{ minWidth: 800 }} verticalSpacing='sm'>
-                <thead>
-                  <tr>
-                    <th>Artist/Band</th>
-                    <th>Instrument</th>
-                    <th>Genre</th>
-                    <th>Price</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-              </Table>
-            </ScrollArea>
-          </div>
-        </div>
-      </ClientLayout>
+    <Layout>
+      <div className={styles.connectionArtistsContainer}>
+        <UnstyledButton mb={20} onClick={() => router.push('/profile/artists')}>
+          <IconChevronLeft size={40} />
+        </UnstyledButton>
+        <ScrollArea>
+          <Table sx={{ minWidth: 800 }} verticalSpacing='sm'>
+            <thead>
+              <tr>
+                <th>Users</th>
+                <th>Status</th>
+                <th>Genre</th>
+                <th>Price</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        </ScrollArea>
+      </div>
     </Layout>
   );
 }
@@ -233,24 +221,17 @@ export default function Connections({ user }: ConnectionsProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['sillusr'];
   let userData;
-  try {
-    if (token) {
-      const res = await fetch(
-        `${process.env.HEROKU_BACKEND_URI}/api/users/datauser`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          cache: 'no-store',
-        }
-      );
-      userData = await res.json();
-    } else {
-      userData = { data: 'Token has expired' };
-    }
-  } catch (e) {
-    console.log(e);
+  if (token) {
+    const res = await fetch(
+      `${process.env.HEROKU_BACKEND_URI}/api/users/datauser`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    userData = await res.json();
   }
   return {
     props: { user: userData.data },

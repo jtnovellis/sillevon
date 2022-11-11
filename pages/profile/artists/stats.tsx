@@ -1,15 +1,17 @@
 import Layout from '../../../components/Layout';
 import { ContractStats } from '../../../components/ContractStats';
-import ClientLayout from '../../../components/ClientLayout';
 import { GetServerSideProps } from 'next';
-import styles from '../../../styles/StatsPage.module.scss';
-import { ConnectionsProps } from './connections';
+import styles from '../../../styles/ArtistStats.module.scss';
+import { ConnectionsProps } from '../client/connections';
 import { StatsRing } from '../../../components/StatsRing';
-import { Divider } from '@mantine/core';
+import { IconChevronLeft } from '@tabler/icons';
+import { Divider, UnstyledButton } from '@mantine/core';
+import { useRouter } from 'next/router';
 
 interface StatsProps extends ConnectionsProps {}
 
 export default function Stats({ user }: StatsProps) {
+  const router = useRouter();
   const connectionsAmount = user.connections.length;
   const contractsAmount = user.contracts.length;
   const labelThree = user.mode === 'customer' ? 'Balance' : 'Likes';
@@ -49,13 +51,14 @@ export default function Stats({ user }: StatsProps) {
 
   return (
     <Layout title={`Sillevon | Stats`}>
-      <ClientLayout>
-        <div className={styles.statsContainer}>
-          <ContractStats contracts={user.contracts} />
-          <Divider mt={20} mb={20} />
-          <StatsRing data={dataForRings} />
-        </div>
-      </ClientLayout>
+      <div className={styles.statsContainer}>
+        <UnstyledButton mb={20} onClick={() => router.push('/profile/artists')}>
+          <IconChevronLeft size={40} />
+        </UnstyledButton>
+        <ContractStats contracts={user.contracts} />
+        <Divider mt={20} mb={20} />
+        <StatsRing data={dataForRings} />
+      </div>
     </Layout>
   );
 }

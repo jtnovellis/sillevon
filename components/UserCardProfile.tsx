@@ -89,8 +89,6 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
   const storedName = Cookies.get('name');
   const auth0 = Cookies.get('auth0');
 
-  console.log(auth0);
-
   const links = data.map((item) => (
     <Button
       variant='outline'
@@ -106,9 +104,8 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
             children: <AddPost closeAllModals={closeAllModals} />,
           });
         } else if (item.label === 'Connections') {
-          openModal({
-            title: 'Connections',
-            children: <ConnectionClient user={user} />,
+          router.push({
+            pathname: '/profile/artists/connections',
           });
         } else if (item.label === 'Contracts') {
           router.push({
@@ -117,6 +114,10 @@ export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
         } else if (item.label === 'Chat') {
           router.push({
             pathname: '/profile/artists/chat',
+          });
+        } else if (item.label === 'Stats') {
+          router.push({
+            pathname: '/profile/artists/stats',
           });
         }
       }}
