@@ -5,9 +5,10 @@ import { useRouter } from 'next/router';
 interface MusicianCardProps {
   avatar: string;
   name: string;
-  instrument: string;
+  instrument?: string | undefined;
   price: number;
   email: string;
+  genre?: string;
 }
 
 const MusicianCard: NextPage<MusicianCardProps> = ({
@@ -33,7 +34,7 @@ const MusicianCard: NextPage<MusicianCardProps> = ({
         {name}
       </Text>
       <Text align='center' color='dimmed' size='sm'>
-        {instrument} • {price}/hr
+        {instrument} • $ {price.toFixed(2)} /hr
       </Text>
       <Button
         variant='default'
@@ -42,7 +43,7 @@ const MusicianCard: NextPage<MusicianCardProps> = ({
         radius='md'
         onClick={() => router.push(`/artists/${email}`)}
       >
-        Show more
+        Go to profile
       </Button>
     </Paper>
   );
