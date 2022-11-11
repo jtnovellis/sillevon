@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { GetServerSideProps } from 'next';
 import { User } from '../../../components/User';
 import Cookies from 'js-cookie';
-import { ActionIcon, Divider, Text } from '@mantine/core';
+import { UnstyledButton, Divider, Text } from '@mantine/core';
 import WelcomeChat from '../../../components/WelcomeChat';
 import styles from '../../../styles/ChatArtist.module.scss';
 import { useEffect, useRef, useState } from 'react';
@@ -115,13 +115,12 @@ export default function Chat({ user }: ChatProps) {
     <Layout title={`Sillevon | Chat`}>
       <div className={styles.ChatArtist}>
         <div>
-          <ActionIcon
-            onClick={() => {
-              router.push({ pathname: '/profile/artists' });
-            }}
+          <UnstyledButton
+            mb={20}
+            onClick={() => router.push('/profile/artists')}
           >
-            <IconChevronLeft size={80} />
-          </ActionIcon>
+            <IconChevronLeft size={40} />
+          </UnstyledButton>
         </div>
         <div className={styles.chatContainer}>
           <div>

@@ -3,10 +3,10 @@ import React from 'react';
 import Layout from '../../../components/Layout';
 import styles from '../../../styles/ArtistsContracts.module.scss';
 import { ConnectionsProps } from '../client/connections';
-import { Accordion, Text, Button } from '@mantine/core';
+import { Accordion, Text, Button, UnstyledButton } from '@mantine/core';
 import { acceptContract } from '../../../lib/contracts';
 import Cookies from 'js-cookie';
-import { IconCheck, IconBug } from '@tabler/icons';
+import { IconCheck, IconBug, IconChevronLeft } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import { useRouter } from 'next/router';
 
@@ -18,6 +18,9 @@ export default function ContractsArtists({ user }: ContractsArtistsProps) {
   return (
     <Layout>
       <div className={styles.artistsContractsContainer}>
+        <UnstyledButton mb={20} onClick={() => router.push('/profile/artists')}>
+          <IconChevronLeft size={40} />
+        </UnstyledButton>
         <Accordion variant='contained' radius='md'>
           {user.contracts.length > 0 ? (
             user.contracts.map((contract) => {

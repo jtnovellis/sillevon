@@ -32,11 +32,6 @@ const data = [
     icon: IconFileAnalytics,
   },
   { link: '/profile/client/chat', label: 'Chat', icon: IconMessageCircle },
-  {
-    link: '/profile/client/calendar',
-    label: 'Calendar',
-    icon: IconCalendar,
-  },
   { link: '/profile/client/settings', label: 'Settings', icon: IconSettings },
 ];
 
