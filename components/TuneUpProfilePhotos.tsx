@@ -1,4 +1,4 @@
-import { createStyles, Card, Avatar, Text, Button } from '@mantine/core';
+import { createStyles, Card, Avatar, Text, Button, Image } from '@mantine/core';
 import { DropZone } from './DropZone';
 import MapForRegister from './MapForRegister';
 import { openModal, closeAllModals } from '@mantine/modals';
@@ -11,7 +11,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor:
       theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     width: '20rem',
-    height: '24rem',
+    height: '26rem',
   },
 
   avatar: {
@@ -34,6 +34,11 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '5rem',
     marginTop: '1rem',
+  },
+  imageCard: {
+    height: 160,
+    width: 320,
+    objectFit: 'cover',
   },
 }));
 type ReaderState = string | ArrayBuffer | null;
@@ -78,12 +83,19 @@ export function TuneUpProfilePhotos() {
     readFileBackground(background);
   }, [avatar, background]);
 
+  const backgroundPhotoPreview =
+    toRenderBackground ||
+    'https://res.cloudinary.com/dhrs1koll/image/upload/v1667578196/sillevon/zdlh0oo53lzzbvqoslyz.png';
+
   return (
     <div className={classes.TuneUpProfilePhotos}>
       <div>
         <Card withBorder p='xl' radius='md' className={classes.card}>
-          <Card.Section
-            sx={{ backgroundImage: `url(${toRenderBackground})`, height: 140 }}
+          <Image
+            src={backgroundPhotoPreview as string}
+            width={270}
+            height={160}
+            alt='background to set'
           />
           <Avatar
             src={toRenderAvatar as string}

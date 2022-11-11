@@ -20,6 +20,7 @@ import { Pagination } from '../../components/Pagination';
 interface ArtistsProps {
   nextPage: boolean;
   prevPage: boolean;
+  max: number;
   artistsList: {
     imagesDone: {
       avatar: string;
@@ -27,6 +28,8 @@ interface ArtistsProps {
     name: string;
     email: string;
     mode: string;
+    instrument?: string;
+    genre?: string;
     price: number;
   }[];
   artistsRecomended: {
@@ -36,6 +39,8 @@ interface ArtistsProps {
     name: string;
     email: string;
     mode: string;
+    instrument?: string;
+    genre?: string;
     price: number;
   }[];
 }
@@ -44,6 +49,7 @@ const Artists = ({
   artistsList,
   artistsRecomended,
   nextPage,
+  max,
   prevPage,
 }: ArtistsProps) => {
   const [iconLoading, setIconLoading] = useState<boolean>(false);
@@ -221,7 +227,11 @@ const Artists = ({
           <ArtistsTable data={artistListFiltered} />
         </div>
         <div className={styles.pagination}>
-          <Pagination pagination={pagination} setPagination={setPagination} />
+          <Pagination
+            pagination={pagination}
+            max={max}
+            setPagination={setPagination}
+          />
         </div>
       </section>
     </Layout>
@@ -232,12 +242,20 @@ export default Artists;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const resCarousel = await fetch(
-    `${process.env.HEROKU_BACKEND_URI}/api/users/artist-recomended-data?limit=5&page=1`,
+    `${process.env.HEROKU_BACKEND_URI}/api/users/artist-recomended`,
     {
       method: 'GET',
     }
   );
   const artistsRecomended = await resCarousel.json();
+  const toFront = [];
+  const filtered = artistsRecomended.data.sort(
+    (a: any, b: any) => b.connections.length - a.connections.length
+  );
+  for (let i = 0; i < 5; i++) {
+    const element = filtered[i];
+    toFront.push(element);
+  }
   const resList = await fetch(
     `${process.env.HEROKU_BACKEND_URI}/api/users/artist-initial-data?limit=10&page=1`,
     {
@@ -247,10 +265,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const artistsList = await resList.json();
   return {
     props: {
-      prevPage: artistsRecomended.data.hasPrevPage,
-      nextPage: artistsRecomended.data.hasNextPage,
+      max: artistsList.data.totalPages,
+      prevPage: artistsList.data.hasPrevPage,
+      nextPage: artistsList.data.hasNextPage,
       artistsList: artistsList.data.docs,
-      artistsRecomended: artistsRecomended.data.docs,
+      artistsRecomended: toFront,
     },
   };
 };

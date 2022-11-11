@@ -7,7 +7,7 @@ import {
   Menu,
   ScrollArea,
 } from '@mantine/core';
-import { IconMessages, IconNote, IconDots } from '@tabler/icons';
+import { IconMessages, IconDots } from '@tabler/icons';
 import { useRouter } from 'next/router';
 
 interface UsersStackProps {
@@ -17,6 +17,8 @@ interface UsersStackProps {
     };
     name: string;
     email: string;
+    instrument?: string;
+    genre?: string;
     mode: string;
     price: number;
   }[];
@@ -34,19 +36,19 @@ export function ArtistsTable({ data }: UsersStackProps) {
               {user.name}
             </Text>
             <Text color='dimmed' size='xs'>
-              {user.mode}
+              {user.instrument}
             </Text>
           </div>
         </Group>
       </td>
       <td>
-        <Text size='sm'>{user.email}</Text>
+        <Text size='sm'>{user.genre}</Text>
         <Text size='xs' color='dimmed'>
-          Email
+          Genre
         </Text>
       </td>
       <td>
-        <Text size='sm'>${user.price} / hr</Text>
+        <Text size='sm'>$ {user.price.toFixed(2)} / hr</Text>
         <Text size='xs' color='dimmed'>
           Price
         </Text>
@@ -65,9 +67,6 @@ export function ArtistsTable({ data }: UsersStackProps) {
                 onClick={() => router.push(`/artists/${user.email}`)}
               >
                 Go to profile
-              </Menu.Item>
-              <Menu.Item icon={<IconNote size={16} stroke={1.5} />}>
-                Contract
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
