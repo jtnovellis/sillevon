@@ -29,7 +29,7 @@ import Cookies from 'js-cookie';
 import { useJwt } from 'react-jwt';
 import { useRouter } from 'next/router';
 import { thirdPartAuth } from '../lib/userdata';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { addUserData, setLogged } from '../slices/userSlice';
 import { useAuth0 } from '@auth0/auth0-react';
 import { showNotification } from '@mantine/notifications';
@@ -42,7 +42,7 @@ const HeaderNav: NextPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { user, isAuthenticated } = useAuth0();
-
+  const { imagesDone } = useAppSelector((state) => state.user);
   const trigger = Cookies.get('trigger');
 
   if (trigger && isAuthenticated) {
@@ -106,7 +106,7 @@ const HeaderNav: NextPage = () => {
   const auth = isExpired;
 
   const mode = Cookies.get('mode');
-  const avatar = Cookies.get('avatar');
+  const avatar = imagesDone?.avatar || Cookies.get('avatar');
 
   return (
     <Box className={classes.container}>
