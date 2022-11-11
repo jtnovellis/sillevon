@@ -20,6 +20,7 @@ import { Pagination } from '../../components/Pagination';
 interface ArtistsProps {
   nextPage: boolean;
   prevPage: boolean;
+  max: number;
   artistsList: {
     imagesDone: {
       avatar: string;
@@ -44,6 +45,7 @@ const Artists = ({
   artistsList,
   artistsRecomended,
   nextPage,
+  max,
   prevPage,
 }: ArtistsProps) => {
   const [iconLoading, setIconLoading] = useState<boolean>(false);
@@ -221,7 +223,11 @@ const Artists = ({
           <ArtistsTable data={artistListFiltered} />
         </div>
         <div className={styles.pagination}>
-          <Pagination pagination={pagination} setPagination={setPagination} />
+          <Pagination
+            pagination={pagination}
+            max={max}
+            setPagination={setPagination}
+          />
         </div>
       </section>
     </Layout>
@@ -247,8 +253,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const artistsList = await resList.json();
   return {
     props: {
-      prevPage: artistsRecomended.data.hasPrevPage,
-      nextPage: artistsRecomended.data.hasNextPage,
+      max: artistsList.data.totalPages,
+      prevPage: artistsList.data.hasPrevPage,
+      nextPage: artistsList.data.hasNextPage,
       artistsList: artistsList.data.docs,
       artistsRecomended: artistsRecomended.data.docs,
     },
