@@ -116,7 +116,7 @@ export default function Comments({
               <div>
                 <Text size='sm'>{comment.author.name}</Text>
                 <Text size='xs' color='dimmed'>
-                  {new Date(comment.createdAt).getMinutes()} minutes ago
+                  {new Date(comment.createdAt).toLocaleTimeString()}
                 </Text>
               </div>
             </Group>

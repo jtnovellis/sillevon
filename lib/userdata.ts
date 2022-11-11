@@ -13,3 +13,12 @@ export async function thirdPartAuth(
   const res = await api.post(`/api/users/auth0`, data);
   return res.data;
 }
+
+export async function updatedSettings(data: FormData | {}, options = {}) {
+  const res = await api.post(`/api/users/update-avatar`, data, options);
+  return res.data;
+}
+export async function updatedSettingsRegular(data: {}, options = {}) {
+  const res = await api.put(`/api/users/update-regular`, data, options);
+  return res.data;
+}
