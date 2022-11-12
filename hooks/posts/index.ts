@@ -1,33 +1,35 @@
+import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
-import { featchPosts } from '../../lib/loadPosts';
+import { fetchPosts } from '../../lib/loadPosts';
 
-export function usePosts(page = 1) {
-  const [result, setResult] = useState<any[]>([]);
+export function usePosts(pageNumber: number) {
+  const [newPosts, setNewPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [error, setError] = useState({});
   const [hasNextPage, setHasNextPage] = useState(false);
+
+  const token = Cookies.get('sillusr');
 
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
-    setError({});
-    const controller = new AbortController();
-    const { signal } = controller;
-    featchPosts(page, { signal })
-      .then((data) => {
-        setResult((prev) => [...prev, data.docs]);
-        setHasNextPage(Boolean(data.docs.length));
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        if (signal.aborted) return;
+    (async () => {
+      try {
+        const res = await fetchPosts(pageNumber, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const posts = res.data.docs.reverse();
+        setNewPosts(posts);
+        setHasNextPage(res.data.hasNextPage);
+      } catch {
         setIsError(true);
-        setError({ message: e.message });
-      });
-    return () => controller.abort();
-  }, [page]);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [pageNumber, token]);
 
-  return { result, isLoading, isError, error, hasNextPage };
+  return { newPosts, isLoading, isError, hasNextPage };
 }
