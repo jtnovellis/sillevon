@@ -15,19 +15,18 @@ const mockdata = [
   {
     title: 'Extreme performance',
     description:
-      'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
+      'This is a powerful tool for make your bussiness more visited with live music.',
     icon: IconGauge,
   },
   {
     title: 'Privacy focused',
-    description:
-      'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
+    description: 'People can feel theyself secure when contract a musician.',
     icon: IconUser,
   },
   {
     title: 'No third parties',
     description:
-      'They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves',
+      'The importance is contract musician without third parties means you do not pay comisions.',
     icon: IconCookie,
   },
 ];
@@ -70,8 +69,9 @@ const HomeContent: NextPage = () => {
         align='center'
         mt='md'
       >
-        Every once in a while, you’ll see a Golbat that’s missing some fangs.
-        This happens when hunger drives it to try biting a Steel-type Pokémon.
+        To contact a musician or a band could be too dificult whether you do not
+        have contacts, this web allows you to contract a musician without
+        intermediaries.
       </Text>
 
       <SimpleGrid

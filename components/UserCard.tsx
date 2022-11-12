@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { makeConnections } from '../lib/connections';
 import { IconBug, IconCheck } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
+import Login from './Login';
+import { openModal, closeAllModals } from '@mantine/modals';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface UserCardProps {
@@ -42,32 +44,39 @@ export function UserCard({
 
   async function handleClick() {
     const token = Cookies.get('sillusr');
-    try {
-      const res = await makeConnections(email, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    if (!token) {
+      openModal({
+        title: 'Stay with us',
+        children: <Login closeAllModals={closeAllModals} />,
       });
-      setConnections((prev) => [...prev, res.data]);
-      showNotification({
-        id: 'load-data-user',
-        color: 'teal',
-        title: 'Connection successfully',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconCheck size={16} />,
-        autoClose: 4000,
-      });
-    } catch {
-      showNotification({
-        id: 'load-data-user',
-        color: 'red',
-        title: 'You could not connect',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconBug size={16} />,
-        autoClose: 4000,
-      });
+    } else {
+      try {
+        const res = await makeConnections(email, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setConnections((prev) => [...prev, res.data]);
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'Connection successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
+      } catch {
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'You could not connect',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
+      }
     }
   }
 

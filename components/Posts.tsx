@@ -7,6 +7,7 @@ import { openModal, closeAllModals } from '@mantine/modals';
 import Comments from './Comments';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Login from './Login';
 import { IconCheck, IconBug } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
@@ -48,37 +49,44 @@ export default function Posts({
 
   async function handleClick() {
     const token = Cookies.get('sillusr');
-    setLikeloading(true);
-    try {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/posts/update/${postId}`,
-        {
-          likes: likesAmount + 1,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setLikesToRender(res.data.data.likes);
-      showNotification({
-        id: 'load-data-user',
-        color: 'teal',
-        title: 'Like was created successfully',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconCheck size={16} />,
-        autoClose: 4000,
+    if (!token) {
+      openModal({
+        title: 'Stay with us',
+        children: <Login closeAllModals={closeAllModals} />,
       });
-    } catch {
-      showNotification({
-        id: 'load-data-user',
-        color: 'red',
-        title: 'Like could not been created',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconBug size={16} />,
-        autoClose: 4000,
-      });
-    } finally {
-      setLikeloading(false);
+    } else {
+      setLikeloading(true);
+      try {
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/posts/update/${postId}`,
+          {
+            likes: likesAmount + 1,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setLikesToRender(res.data.data.likes);
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'Like was created successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
+      } catch {
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'Like could not been created',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
+      } finally {
+        setLikeloading(false);
+      }
     }
   }
 

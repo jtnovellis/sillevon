@@ -1,11 +1,4 @@
-import {
-  Text,
-  Avatar,
-  Group,
-  TextInput,
-  Button,
-  TextInputProps,
-} from '@mantine/core';
+import { Text, Avatar, Group, TextInput, Button } from '@mantine/core';
 import styles from '../styles/Comments.module.scss';
 import { useCommentsStyles } from './ui/useCommentsStyles';
 import axios from 'axios';
@@ -13,6 +6,8 @@ import Cookies from 'js-cookie';
 import { useEffect, useRef, useState } from 'react';
 import { IconCheck, IconBug } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
+import Login from './Login';
+import { openModal } from '@mantine/modals';
 import { Dispatch, SetStateAction } from 'react';
 
 interface CommentsProps {
@@ -68,36 +63,43 @@ export default function Comments({
 
   const handleModalClick = async () => {
     const token = Cookies.get('sillusr');
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/comments/new/${postId}`,
-        {
-          body: commentBody,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setCommentBody('');
-      setComment((prev) => [...prev, res.data.data]);
-      closeAllModals();
-      showNotification({
-        id: 'load-data-user',
-        color: 'teal',
-        title: 'Comment was created successfully',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconCheck size={16} />,
-        autoClose: 4000,
+    if (!token) {
+      openModal({
+        title: 'Stay with us',
+        children: <Login closeAllModals={closeAllModals} />,
       });
-    } catch (e) {
-      showNotification({
-        id: 'load-data-user',
-        color: 'red',
-        title: 'User could not been created',
-        message:
-          'Notification will close in 4 seconds, you can close this notification now',
-        icon: <IconBug size={16} />,
-        autoClose: 4000,
-      });
+    } else {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_HEROKU_BACKEND_URI}/api/comments/new/${postId}`,
+          {
+            body: commentBody,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setCommentBody('');
+        setComment((prev) => [...prev, res.data.data]);
+        closeAllModals();
+        showNotification({
+          id: 'load-data-user',
+          color: 'teal',
+          title: 'Comment was created successfully',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
+      } catch (e) {
+        showNotification({
+          id: 'load-data-user',
+          color: 'red',
+          title: 'User could not been created',
+          message:
+            'Notification will close in 4 seconds, you can close this notification now',
+          icon: <IconBug size={16} />,
+          autoClose: 4000,
+        });
+      }
     }
   };
 
