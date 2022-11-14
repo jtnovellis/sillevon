@@ -135,6 +135,7 @@ const HeaderNav: NextPage = () => {
           </Group>
           <Group className={classes.hiddenMobile}>
             <Switch
+              className={classes.switch}
               checked={colorScheme === 'dark'}
               onChange={() => toggleColorScheme()}
               size='lg'

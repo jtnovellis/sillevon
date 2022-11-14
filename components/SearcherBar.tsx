@@ -42,7 +42,7 @@ export function SearcherBar({
           )}
         </ActionIcon>
       }
-      placeholder='Search your artists'
+      placeholder='Search your artists by location'
       rightSectionWidth={42}
     />
   );
