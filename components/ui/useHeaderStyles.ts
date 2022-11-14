@@ -48,12 +48,12 @@ export const useHeaderStyles = createStyles((theme) => ({
     fontSize: 25,
     fontWeight: 700,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   hiddenMobile: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItemsd: 'center',
     [theme.fn.smallerThan('sm')]: {
       display: 'none',
     },
@@ -63,5 +63,10 @@ export const useHeaderStyles = createStyles((theme) => ({
     [theme.fn.largerThan('sm')]: {
       display: 'none',
     },
+  },
+  switch: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));

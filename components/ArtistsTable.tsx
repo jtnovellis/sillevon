@@ -6,6 +6,7 @@ import {
   ActionIcon,
   Menu,
   ScrollArea,
+  UnstyledButton,
 } from '@mantine/core';
 import { IconMessages, IconDots } from '@tabler/icons';
 import { useRouter } from 'next/router';
@@ -29,9 +30,16 @@ export function ArtistsTable({ data }: UsersStackProps) {
   const rows = data.map((user) => (
     <tr key={user.email}>
       <td>
-        <Group spacing='sm'>
+        <UnstyledButton
+          style={{
+            display: 'flex',
+          }}
+          onClick={() => {
+            router.push(`/artists/${user.email}`);
+          }}
+        >
           <Avatar size={40} src={user.imagesDone.avatar} radius={40} />
-          <div>
+          <div style={{ marginLeft: '1rem' }}>
             <Text size='sm' weight={500}>
               {user.name}
             </Text>
@@ -39,7 +47,7 @@ export function ArtistsTable({ data }: UsersStackProps) {
               {user.instrument}
             </Text>
           </div>
-        </Group>
+        </UnstyledButton>
       </td>
       <td>
         <Text size='sm'>{user.genre}</Text>
