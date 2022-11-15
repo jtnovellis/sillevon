@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next';
 import styles from '../../../styles/StatsPage.module.scss';
 import { ConnectionsProps } from './connections';
 import { StatsRing } from '../../../components/StatsRing';
-import { Divider } from '@mantine/core';
+import { Divider, Text } from '@mantine/core';
 
 interface StatsProps extends ConnectionsProps {}
 
@@ -50,6 +50,17 @@ export default function Stats({ user }: StatsProps) {
   return (
     <Layout title={`Sillevon | Stats`}>
       <ClientLayout>
+        <Text
+          component='span'
+          align='center'
+          variant='gradient'
+          gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+          size={50}
+          weight={700}
+          style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+        >
+          Stats
+        </Text>
         <div className={styles.statsContainer}>
           <ContractStats contracts={user.contracts} />
           <Divider mt={20} mb={20} />

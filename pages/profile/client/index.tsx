@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     );
     posts = await res.json();
-    ordered = posts.data.docs.reverse();
+    ordered = posts.data.docs;
   } catch (e) {
     console.log(e);
   }

@@ -6,6 +6,7 @@ import {
   PasswordInput,
   Button,
   Avatar,
+  Text,
   FileInput,
 } from '@mantine/core';
 import { IconLock, IconCheck, IconBug, IconUser } from '@tabler/icons';
@@ -168,6 +169,17 @@ export default function Settings({ user }: SettingsProps) {
   return (
     <Layout title={`Sillevon | Settings`}>
       <ClientLayout>
+        <Text
+          component='span'
+          align='center'
+          variant='gradient'
+          gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+          size={50}
+          weight={700}
+          style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+        >
+          Settings
+        </Text>
         <Card shadow='xl' withBorder className={styles.card}>
           <div className={styles.avatarContainer}>
             <Avatar src={avatar as string} alt={user.name} size='xl' />

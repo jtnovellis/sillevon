@@ -58,3 +58,8 @@ export async function acceptContract(id: string, options = {}) {
   );
   return res.data;
 }
+
+export async function deleteContract(id: string, options = {}) {
+  const res = await api.delete(`/api/contracts/delete/${id}`, options);
+  return res.data;
+}
