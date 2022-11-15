@@ -46,6 +46,9 @@ export const useHeaderStyles = createStyles((theme) => ({
 
   logo: {
     fontSize: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontWeight: 700,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
   },
