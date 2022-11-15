@@ -38,6 +38,10 @@
   width: 35rem;
   display: flex;
   justify-content: space-around;
+  td {
+    display: flex;
+    min-width: 7rem;
+  }
 }
 .noSongsMessage {
   width: 35rem;

@@ -207,7 +207,17 @@ export default function Connections({ user }: ConnectionsProps) {
     <Layout title={`Sillevon | Connections`}>
       <ClientLayout>
         <div>
-          <Text>Connections</Text>
+          <Text
+            component='span'
+            align='center'
+            variant='gradient'
+            gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+            size={50}
+            weight={700}
+            style={{ fontFamily: 'Greycliff CF, sans-serif' }}
+          >
+            Connections
+          </Text>
           <div>
             <ScrollArea>
               <Table sx={{ minWidth: 800 }} verticalSpacing='sm'>

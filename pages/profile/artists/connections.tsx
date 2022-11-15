@@ -150,9 +150,9 @@ export default function ConnectionClient({ user }: ConnectionsProps) {
     <tr key={item._id}>
       <td>
         <Group spacing='sm'>
-          <Avatar size={30} src={item.userB.imagesDone.avatar} radius={30} />
+          <Avatar size={30} src={item.userA.imagesDone.avatar} radius={30} />
           <Text size='sm' weight={500}>
-            {item.userB.name}
+            {item.userA.name}
           </Text>
         </Group>
       </td>
@@ -171,12 +171,12 @@ export default function ConnectionClient({ user }: ConnectionsProps) {
           href='#'
           onClick={(event) => event.preventDefault()}
         >
-          {item.userB.genre}
+          {item.userA.genre}
         </Anchor>
       </td>
       <td>
         <Text size='sm' color='dimmed'>
-          {item.userB.price} /hr
+          {item.userA.price} /hr
         </Text>
       </td>
       <td>

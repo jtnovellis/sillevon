@@ -100,11 +100,11 @@ export default function StepperContract({ user }: StepperContractProps) {
   }
 
   useEffect(() => {
-    if (typeof numOfRehearsal === 'number' && typeof totalPrice === 'number') {
+    /* if (typeof numOfRehearsal === 'number' && typeof totalPrice === 'number') {
       const currentRehearsalPrice = contracts.length * 8 * numOfRehearsal;
       const newPrice = totalPrice + currentRehearsalPrice;
       dispatch(setSlicePrice({ price: newPrice }));
-    }
+    } */
     if (typeof numOfRehearsal === 'number') {
       const newArray = arrayGenerator(numOfRehearsal);
       setRehearsalInputsToRender(newArray);
@@ -396,7 +396,17 @@ export default function StepperContract({ user }: StepperContractProps) {
                     <ActionIcon<'button'>
                       size={28}
                       variant='transparent'
-                      onClick={() => handlers.current?.decrement()}
+                      onClick={() => {
+                        handlers.current?.decrement();
+                        if (
+                          typeof numOfRehearsal === 'number' &&
+                          typeof totalPrice === 'number'
+                        ) {
+                          const currentRehearsalPrice = 8;
+                          const newPrice = totalPrice - currentRehearsalPrice;
+                          dispatch(setSlicePrice({ price: newPrice }));
+                        }
+                      }}
                       disabled={numOfRehearsal === min}
                       className={classes.control}
                       onMouseDown={(event) => event.preventDefault()}
@@ -415,7 +425,18 @@ export default function StepperContract({ user }: StepperContractProps) {
                     <ActionIcon<'button'>
                       size={28}
                       variant='transparent'
-                      onClick={() => handlers.current?.increment()}
+                      onClick={() => {
+                        handlers.current?.increment();
+                        if (
+                          typeof numOfRehearsal === 'number' &&
+                          typeof totalPrice === 'number'
+                        ) {
+                          const currentRehearsalPrice =
+                            contracts.length * 8 * numOfRehearsal;
+                          const newPrice = totalPrice + currentRehearsalPrice;
+                          dispatch(setSlicePrice({ price: newPrice }));
+                        }
+                      }}
                       disabled={numOfRehearsal === max}
                       className={classes.control}
                       onMouseDown={(event) => event.preventDefault()}
