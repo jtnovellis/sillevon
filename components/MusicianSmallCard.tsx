@@ -1,5 +1,4 @@
 import { useMusicianSmallCardStyles } from './ui/useMusicianSmallCardStyles';
-import styles from '../styles/MusicianSmallCard.module.scss';
 import {
   UnstyledButton,
   UnstyledButtonProps,
