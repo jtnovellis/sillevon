@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import { NumberInput, NumberInputHandlers, ActionIcon } from '@mantine/core';
 import { IconPlus, IconMinus } from '@tabler/icons';
 import { usePaginationStyles } from './ui/usePaginationStyles';

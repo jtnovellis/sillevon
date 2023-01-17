@@ -6,14 +6,6 @@ import { IconPlayerPlay } from '@tabler/icons';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
-const mockdata = [
-  { label: '2 performances', icon: IconPlayerPlay },
-  { label: 'Change band', icon: IconPlayerPlay },
-  { label: 'Automatic gearbox', icon: IconPlayerPlay },
-  { label: 'Electric', icon: IconPlayerPlay },
-  { label: 'Electric', icon: IconPlayerPlay },
-];
-
 interface PricingCardProps {
   plan: {
     title: string;

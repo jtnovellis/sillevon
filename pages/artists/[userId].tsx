@@ -60,7 +60,7 @@ export interface ArtistProfileClientProps {
 
 const ArtistProfileClient = ({ user }: ArtistProfileClientProps) => {
   const [connections, setConnections] = useState(user.connections);
-  const [contracts, setContracts] = useState(user.contracts);
+  const [contracts, _] = useState(user.contracts);
   const mockData = {
     image: user.imagesDone.background,
     avatar: user.imagesDone.avatar,

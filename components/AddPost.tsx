@@ -1,5 +1,5 @@
 import { Button, TextInput } from '@mantine/core';
-import { Dispatch, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { DropZone } from './DropZone';
 import style from '../styles/AddPost.module.scss';
@@ -72,6 +72,7 @@ export default function AddPost({ closeAllModals }: AddPostProps) {
       });
     }
   }
+
   return (
     <div>
       <TextInput

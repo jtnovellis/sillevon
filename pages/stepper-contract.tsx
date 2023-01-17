@@ -100,11 +100,6 @@ export default function StepperContract({ user }: StepperContractProps) {
   }
 
   useEffect(() => {
-    /* if (typeof numOfRehearsal === 'number' && typeof totalPrice === 'number') {
-      const currentRehearsalPrice = contracts.length * 8 * numOfRehearsal;
-      const newPrice = totalPrice + currentRehearsalPrice;
-      dispatch(setSlicePrice({ price: newPrice }));
-    } */
     if (typeof numOfRehearsal === 'number') {
       const newArray = arrayGenerator(numOfRehearsal);
       setRehearsalInputsToRender(newArray);

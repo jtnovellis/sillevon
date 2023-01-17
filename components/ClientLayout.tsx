@@ -1,5 +1,6 @@
 import { ClientNavbar } from './ClientNavBar';
 import styles from '../styles/ClientLayout.module.scss';
+
 interface ClientLayoutProps {
   children: React.ReactNode;
 }

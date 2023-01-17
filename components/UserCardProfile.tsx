@@ -79,7 +79,7 @@ interface UserCardProfileProps {
   };
 }
 
-export function UserCardProfile({ avatar, name, user }: UserCardProfileProps) {
+export function UserCardProfile({}: UserCardProfileProps) {
   const { classes, cx } = useUserNavProfile();
   const [active, setActive] = useState('');
   const router = useRouter();
