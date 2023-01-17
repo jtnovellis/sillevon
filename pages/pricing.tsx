@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import Layout from '../components/Layout';
 import { Text, SegmentedControl } from '@mantine/core';
 import styles from '../styles/Pricing.module.scss';
@@ -30,6 +30,7 @@ const Pricing = ({ yearly, monthly }: PricingProps) => {
   const yearlyToRender = yearly.map((plan, i) => (
     <PricingCard key={`${plan._id}yearly${i + 1}`} plan={plan} />
   ));
+
   return (
     <Layout title='Sillevon | Pricing'>
       <div className={styles.pricing}>
@@ -72,7 +73,7 @@ const Pricing = ({ yearly, monthly }: PricingProps) => {
 
 export default Pricing;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(`${process.env.HEROKU_BACKEND_URI}/api/plans/all`, {
     method: 'GET',
   });

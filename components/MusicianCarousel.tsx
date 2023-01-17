@@ -1,5 +1,6 @@
 import { Carousel } from '@mantine/carousel';
 import MusicianCard from './MusicianCard';
+
 interface MusicianCarouselProps {
   data: {
     imagesDone: {

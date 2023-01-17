@@ -8,7 +8,6 @@ import {
   IconChartBar,
   IconFileAnalytics,
   IconMessageCircle,
-  IconCalendar,
   IconUsers,
 } from '@tabler/icons';
 import { useRouter } from 'next/router';

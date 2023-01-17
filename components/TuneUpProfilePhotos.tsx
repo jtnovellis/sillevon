@@ -5,6 +5,7 @@ import { openModal, closeAllModals } from '@mantine/modals';
 import { useAppSelector } from '../hooks/redux';
 import { useLayoutEffect, useState } from 'react';
 import { FileWithPath } from '@mantine/dropzone';
+import { useTuneUpProfilePhotosStyles } from './ui/useTuneUpProfilePhotosStyles';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -44,7 +45,7 @@ const useStyles = createStyles((theme) => ({
 type ReaderState = string | ArrayBuffer | null;
 
 export function TuneUpProfilePhotos() {
-  const { classes } = useStyles();
+  const { classes } = useTuneUpProfilePhotosStyles();
   const [toRenderAvatar, setToRenderAvatar] = useState<ReaderState>(null);
   const [toRenderBackground, setToRenderBackground] =
     useState<ReaderState>(null);

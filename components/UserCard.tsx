@@ -6,7 +6,7 @@ import { IconBug, IconCheck } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import Login from './Login';
 import { openModal, closeAllModals } from '@mantine/modals';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface UserCardProps {
   image: string;

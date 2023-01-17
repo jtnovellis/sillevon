@@ -49,6 +49,7 @@ const labels = [
   'November',
   'December',
 ];
+
 interface ContractStatsProps {
   contracts: {
     contractName: string;

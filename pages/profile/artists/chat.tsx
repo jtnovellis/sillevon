@@ -94,7 +94,7 @@ export interface ChatProps {
 
 export default function Chat({ user }: ChatProps) {
   const socket = useRef<Socket>();
-  const [contacts, setContacts] = useState(user.connections);
+  const [contacts, _] = useState(user.connections);
   const [currentChat, setCurrentChat] = useState<ChatProps | null>(null);
   const [isSelected, setIsSelected] = useState<number | null>(null);
   const router = useRouter();
